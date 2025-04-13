@@ -57,7 +57,6 @@ const UpdateProfile = () => {
     fetchTutor();
   }, [user?.userEmail]);
 
-  console.log(tutor);
   const form = useForm({
     defaultValues: {
       name: tutor?.name || "",
@@ -68,7 +67,7 @@ const UpdateProfile = () => {
       gradeLevel: tutor?.gradeLevel || "",
       hourlyRate: tutor?.hourlyRate?.toString() || "",
       category: tutor?.category || "",
-      ratings: tutor?.ratings?.join(", ") || "",
+
       availability: tutor?.availability || [{ day: "", time: "" }],
       profileImage: tutor?.profileImage || "",
     },
@@ -85,7 +84,6 @@ const UpdateProfile = () => {
         gradeLevel: tutor?.gradeLevel || "",
         hourlyRate: tutor?.hourlyRate?.toString() || "",
         category: tutor?.category || "",
-        ratings: tutor?.ratings?.join(", ") || "",
         availability: tutor?.availability || [{ day: "", time: "" }],
         profileImage: tutor?.profileImage,
       });
@@ -115,7 +113,6 @@ const UpdateProfile = () => {
       subjects: data?.subjects.split(",").map((sub: string) => sub.trim()),
       hourlyRate: Number(data?.hourlyRate) || 0,
       availability,
-      ratings: data?.ratings.split(",").map(Number) || [],
     };
 
     try {
@@ -298,24 +295,6 @@ const UpdateProfile = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="border border-gray-400 "
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="ratings"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>ratings</FormLabel>
                   <FormControl>
                     <Input
                       className="border border-gray-400 "

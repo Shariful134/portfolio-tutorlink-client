@@ -132,7 +132,7 @@ const HomeComponent = () => {
   const { user, ratings } = useUser();
 
   const form = useForm();
-
+  console.log(reviews);
   useEffect(() => {
     const fetchTutors = async () => {
       try {
@@ -677,7 +677,7 @@ const HomeComponent = () => {
                   <p className="max-w-[80px] ">
                     Review ( {tutor?.ratings?.length} )
                   </p>
-                  <ShowRating RatingShow={tutor?.ratings}></ShowRating>
+                  <ShowRating RatingShow={tutor?.ratings[0]}></ShowRating>
                 </div>
                 <div className=" flex flex-wrap gap-y-2 justify-between  items-center">
                   {user?.role === "student" && (
@@ -707,7 +707,7 @@ const HomeComponent = () => {
                               <MessageSquareMore />
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className="sm:max-w-[425px] bg-white">
+                          <DialogContent className="sm:max-w-[425px] max-h-[500px] bg-white">
                             <DialogHeader>
                               <DialogTitle></DialogTitle>
                               <DialogDescription></DialogDescription>
@@ -732,7 +732,7 @@ const HomeComponent = () => {
                                     )}
                                   />
                                 </div>
-                                <div className="mt-5">
+                                <div className="mt-2">
                                   <StarRating></StarRating>
                                 </div>
                                 <div>
@@ -746,6 +746,37 @@ const HomeComponent = () => {
                                 </div>
                               </form>
                             </Form>
+
+                            <div className="max-h-[52%] overflow-y-auto">
+                              {reviews
+                                ?.filter(
+                                  (review: any) =>
+                                    review?.tutor?._id === tutor?._id
+                                )
+                                .map((review, index) => (
+                                  <div
+                                    key={review._id}
+                                    className="flex gap-2 mb-5"
+                                  >
+                                    {index + 1}.
+                                    <div>
+                                      <div className="flex items-center gap-1">
+                                        <h2 className="text-lg">
+                                          {review?.student?.name}
+                                        </h2>
+                                        <p>
+                                          <ShowRating
+                                            RatingShow={review?.rating}
+                                          ></ShowRating>
+                                        </p>
+                                      </div>
+                                      <p className="text-sm md:text-sm lg:text-lg">
+                                        {review?.comment}
+                                      </p>
+                                    </div>
+                                  </div>
+                                ))}
+                            </div>
 
                             <DialogFooter></DialogFooter>
                           </DialogContent>
