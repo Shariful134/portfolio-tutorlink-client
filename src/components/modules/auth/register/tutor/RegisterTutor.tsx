@@ -77,9 +77,7 @@ const RegisterTutor = () => {
         data?.subjects.split(",").map((sub: string) => sub.trim()) || [],
       hourlyRate: Number(data?.hourlyRate) || 0,
       availability,
-      // ratings: data?.ratings ? data?.ratings.split(",").map(Number) : [],
     };
-    // console.log(tutorData);
 
     try {
       const res = await registerTutor(tutorData);

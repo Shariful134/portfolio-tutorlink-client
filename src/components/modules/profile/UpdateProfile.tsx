@@ -19,13 +19,12 @@ import {
 } from "react-hook-form";
 import { toast } from "sonner";
 
-import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePriviewer";
-import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext";
 import { Plus } from "lucide-react";
 import { updateTutorData } from "@/services/authService";
 import { getAllTutors } from "@/services/User";
+import UploadWidget from "@/imgaeUpload/UploadWidget";
 
 interface availability {
   day: string;
@@ -33,8 +32,11 @@ interface availability {
 }
 
 const UpdateProfile = () => {
-  const [imageFiels, setImageFiels] = useState<File[] | []>([]);
-  const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+  const [imageUrl, setImageUrl] = useState<string | "">("");
+
+  const handleImageUpload = (url: string) => {
+    setImageUrl(url);
+  };
 
   const { user } = useUser();
   const [tutor, setTutor] = useState<any>([]);
@@ -61,7 +63,7 @@ const UpdateProfile = () => {
     defaultValues: {
       name: tutor?.name || "",
       email: tutor?.email || "",
-      phoneNumber: tutor?.phoneNumber || "",
+      phoneNumber: tutor?.phoneNumber || "0000000000000",
       bio: tutor?.bio || "",
       subjects: tutor?.subjects?.join(", ") || "",
       gradeLevel: tutor?.gradeLevel || "",
@@ -78,7 +80,7 @@ const UpdateProfile = () => {
       form.reset({
         name: tutor?.name || "",
         email: tutor?.email || "",
-        phoneNumber: tutor?.phoneNumber || "",
+        phoneNumber: tutor?.phoneNumber || "0000000000000",
         bio: tutor?.bio || "",
         subjects: tutor?.subjects?.join(", ") || "",
         gradeLevel: tutor?.gradeLevel || "",
@@ -102,6 +104,7 @@ const UpdateProfile = () => {
   const addAvailavility = () => {
     appendAvailability({ day: "", time: "" });
   };
+  const profileImage = imageUrl ? imageUrl : "";
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const availability = data?.availability?.map((item: availability) => ({
       day: item.day || "",
@@ -113,15 +116,12 @@ const UpdateProfile = () => {
       subjects: data?.subjects.split(",").map((sub: string) => sub.trim()),
       hourlyRate: Number(data?.hourlyRate) || 0,
       availability,
+      profileImage,
     };
-
+    console.log("tutorData: ", tutorData);
     try {
-      const formdata = new FormData();
-      formdata.append("data", JSON.stringify(tutorData));
-      formdata.append("file", imageFiels[0] as File);
-
-      const res = await updateTutorData(formdata, tutor?._id);
-
+      const res = await updateTutorData(tutorData, tutor?._id);
+      console.log("res: ", res);
       if (res.success) {
         toast.success(res?.message);
       } else {
@@ -139,22 +139,8 @@ const UpdateProfile = () => {
       </div>
       <div className="flex flex-col items-center mb-5 ">
         {" "}
-        <div className="flex items-center justify-center ">
-          {imagePreview.length > 0 ? (
-            <ImagePreviewer
-              setImagePreview={setImagePreview}
-              setImageFiels={setImageFiels}
-              imagePreview={imagePreview}
-              className="mt-5"
-            />
-          ) : (
-            <NMImageUploader
-              setImagePreview={setImagePreview}
-              setImageFiels={setImageFiels}
-              label="Profile Image"
-              className="mt-5"
-            />
-          )}
+        <div className="flex items-center justify-center mt-5">
+          <UploadWidget onImageUpload={handleImageUpload} />
         </div>
       </div>
       <Form {...form}>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import tutorlin from "@/app/assest/images/tutorlin-logo.png";
 
@@ -33,9 +34,6 @@ export default function Navbar() {
   const [users, setUsers] = useState<IUsers[] | []>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  console.log(error);
-  console.log(loading);
 
   useEffect(() => {
     const fetchTutors = async () => {

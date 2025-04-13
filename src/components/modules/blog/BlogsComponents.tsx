@@ -85,7 +85,7 @@ const BlogsComponents = () => {
         <SkeletonLoading />
       </div>
     );
-  console.log(industrial);
+
   return (
     <div className="pb-5">
       <div className="relative">
@@ -116,7 +116,7 @@ const BlogsComponents = () => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-15 sm:justify-start ">
-        <div className=" md:w-[70%] sm:w-full order-2 md:order-1 ">
+        <div className="w-full md:w-[70%] lg:w-[50%]  order-2 md:order-1 ">
           {education?.slice(6, 7)?.map((article: NewsArticle, index) => (
             <div key={index} className="mt-5 mb-5">
               <Image
@@ -234,14 +234,14 @@ const BlogsComponents = () => {
             </div>
           ))}
         </div>
-        <div className="md:w-[30%] sm:w-full order-1 md:order-2 mt-5">
+        <div className="w-full hidden lg:inline lg:w-[25%]  order-1 md:order-2 mt-5">
           <Input
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search here"
             className="w-full"
           ></Input>
           <div>
-            <h2 className="text-2xl py-4 bg-gray-200 my-5 ps-3">Categories</h2>
+            <h2 className="text-2xl py-3 bg-gray-200 my-5 ps-3">Categories</h2>
             <div className="flex justify-between pt-5 ">
               <p className="text-sm md:text-sm lg:text-lg text-gray-700 ps-3">
                 Educational
@@ -267,10 +267,11 @@ const BlogsComponents = () => {
               <p>{recentlyUpdated}</p>
             </div>
           </div>
+
           <div>
             {searchQuery === "" ? (
               <div>
-                <h2 className="text-2xl py-4 bg-gray-200 my-5 ps-3">
+                <h2 className="text-2xl py-3 bg-gray-200 my-5 ps-3">
                   Recently Updates
                 </h2>
                 <div>
@@ -306,7 +307,7 @@ const BlogsComponents = () => {
                       </div>
                     ))}
                 </div>{" "}
-                <h2 className="text-2xl py-4 bg-gray-200 my-5 ps-3 ">
+                <h2 className="text-2xl py-3 bg-gray-200 my-5 ps-3 ">
                   Recently Posted
                 </h2>
                 <div>
@@ -375,139 +376,6 @@ const BlogsComponents = () => {
                       </div>
                     ))}
                 </div>
-                <div>
-                  <h2 className="text-2xl my-5  "></h2>
-                  <div className="bg-gray-200 grid grid-cols-12 ">
-                    <p
-                      onClick={() => setSelectTab("Industry")}
-                      className={`py-5 col-span-4 text-center ${
-                        selectTab === "Industry"
-                          ? "bg-purple-500 text-white"
-                          : ""
-                      }`}
-                    >
-                      Industry
-                    </p>
-                    <p
-                      onClick={() => setSelectTab("Education")}
-                      className={`py-5 col-span-4 text-center ${
-                        selectTab === "Education"
-                          ? "bg-purple-500 text-white"
-                          : ""
-                      }`}
-                    >
-                      Education
-                    </p>
-                    <p
-                      onClick={() => setSelectTab("All News")}
-                      className={`py-5 col-span-4 text-center ${
-                        selectTab === "All News"
-                          ? "bg-purple-500 text-white"
-                          : ""
-                      }`}
-                    >
-                      All News{" "}
-                    </p>
-                  </div>
-                  <div>
-                    {selectTab === "Industry" &&
-                      industrial?.map((article: NewsArticle, index) => (
-                        <div
-                          key={index}
-                          className="mt-5 flex flex-col md:flex-row gap-2  "
-                        >
-                          <Image
-                            src={article?.image}
-                            width={100}
-                            height={1300}
-                            priority={true}
-                            alt="blogImage"
-                            className="rounded-lg "
-                          ></Image>
-                          <div className="">
-                            <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
-                              <Link
-                                className="hover:underline hover:text-purple-500"
-                                href={article?.url}
-                              >
-                                {article?.title}
-                              </Link>
-                            </h2>
-                            <div className="flex items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
-                              {" "}
-                              {article?.publishedAt}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                  <div>
-                    {selectTab === "Education" &&
-                      education?.map((article: NewsArticle, index) => (
-                        <div
-                          key={index}
-                          className="mt-5 flex flex-col md:flex-row gap-2  "
-                        >
-                          <Image
-                            src={article?.image}
-                            width={100}
-                            height={1300}
-                            priority={true}
-                            alt="blogImage"
-                            className="rounded-lg "
-                          ></Image>
-                          <div className="">
-                            <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
-                              <Link
-                                className="hover:underline hover:text-purple-500"
-                                href={article?.url}
-                              >
-                                {article?.title}
-                              </Link>
-                            </h2>
-                            <div className="flex items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
-                              {" "}
-                              {article?.publishedAt}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                  <div>
-                    {selectTab === "All News" &&
-                      [...industrial, ...education]?.map(
-                        (article: NewsArticle, index) => (
-                          <div
-                            key={index}
-                            className="mt-5 flex flex-col md:flex-row gap-2  "
-                          >
-                            <Image
-                              src={article?.image}
-                              width={100}
-                              height={1300}
-                              priority={true}
-                              alt="blogImage"
-                              className="rounded-lg "
-                            ></Image>
-                            <div className="">
-                              <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
-                                <Link
-                                  className="hover:underline hover:text-purple-500"
-                                  href={article?.url}
-                                >
-                                  {article?.title}
-                                </Link>
-                              </h2>
-                              <div className="flex items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
-                                {" "}
-                                {article?.publishedAt}
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      )}
-                  </div>
-                </div>
               </div>
             ) : (
               <div>
@@ -528,7 +396,7 @@ const BlogsComponents = () => {
                           alt="blogImage"
                           className="rounded-lg"
                         ></Image>
-                        <div className="">
+                        <div className="w-[]">
                           <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
                             <Link
                               className="hover:underline hover:text-purple-500"
@@ -680,6 +548,133 @@ const BlogsComponents = () => {
               ))}
             </div>
           </div> */}
+        </div>
+        <div className=" w-full md:w-[30%] lg:w-[25%]  order-3">
+          <h2 className="text-2xl my-5 "></h2>
+          <div className="bg-gray-200 grid grid-cols-12 ">
+            <p
+              onClick={() => setSelectTab("Industry")}
+              className={`py-4 col-span-4 text-center ${
+                selectTab === "Industry" ? "bg-purple-500 text-white" : ""
+              }`}
+            >
+              Industry
+            </p>
+            <p
+              onClick={() => setSelectTab("Education")}
+              className={`py-4 col-span-4 text-center ${
+                selectTab === "Education" ? "bg-purple-500 text-white" : ""
+              }`}
+            >
+              Education
+            </p>
+            <p
+              onClick={() => setSelectTab("All News")}
+              className={`py-4 col-span-4 text-center ${
+                selectTab === "All News" ? "bg-purple-500 text-white" : ""
+              }`}
+            >
+              All News{" "}
+            </p>
+          </div>
+          <div>
+            {selectTab === "Industry" &&
+              industrial?.map((article: NewsArticle, index) => (
+                <div
+                  key={index}
+                  className="mt-5 flex flex-col md:flex-row gap-2  "
+                >
+                  <Image
+                    src={article?.image}
+                    width={100}
+                    height={1300}
+                    priority={true}
+                    alt="blogImage"
+                    className="rounded-lg "
+                  ></Image>
+                  <div className="">
+                    <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
+                      <Link
+                        className="hover:underline hover:text-purple-500"
+                        href={article?.url}
+                      >
+                        {article?.title}
+                      </Link>
+                    </h2>
+                    <div className="flex items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                      {" "}
+                      {article?.publishedAt}
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+          <div>
+            {selectTab === "Education" &&
+              education?.map((article: NewsArticle, index) => (
+                <div
+                  key={index}
+                  className="mt-5 flex flex-col md:flex-row gap-2  "
+                >
+                  <Image
+                    src={article?.image}
+                    width={100}
+                    height={1300}
+                    priority={true}
+                    alt="blogImage"
+                    className="rounded-lg "
+                  ></Image>
+                  <div className="">
+                    <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
+                      <Link
+                        className="hover:underline hover:text-purple-500"
+                        href={article?.url}
+                      >
+                        {article?.title}
+                      </Link>
+                    </h2>
+                    <div className="flex items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                      {" "}
+                      {article?.publishedAt}
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+          <div>
+            {selectTab === "All News" &&
+              [...industrial, ...education]?.map(
+                (article: NewsArticle, index) => (
+                  <div
+                    key={index}
+                    className="mt-5 flex flex-col md:flex-row gap-2  "
+                  >
+                    <Image
+                      src={article?.image}
+                      width={100}
+                      height={1300}
+                      priority={true}
+                      alt="blogImage"
+                      className="rounded-lg "
+                    ></Image>
+                    <div className="">
+                      <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
+                        <Link
+                          className="hover:underline hover:text-purple-500"
+                          href={article?.url}
+                        >
+                          {article?.title}
+                        </Link>
+                      </h2>
+                      <div className="flex items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        {article?.publishedAt}
+                      </div>
+                    </div>
+                  </div>
+                )
+              )}
+          </div>
         </div>
       </div>
     </div>

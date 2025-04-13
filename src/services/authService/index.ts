@@ -48,19 +48,21 @@ export const registerTutor = async (userData: FieldValues) => {
 
 // update tutorData
 export const updateTutorData = async (
-  userData: FormData,
+  userData: FieldValues,
   id: string
 ): Promise<any> => {
   const token = (await cookies()).get("accessToken")!.value;
+
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/auth/update-as-tutor/${id}`,
       {
         method: "PATCH",
-        body: userData,
         headers: {
+          "Content-type": "application/json",
           Authorization: token,
         },
+        body: JSON.stringify(userData),
       }
     );
     revalidateTag("User");
@@ -72,18 +74,21 @@ export const updateTutorData = async (
 
 // update Profile
 export const updateProfile = async (
-  ProfileImg: FormData,
+  ProfileImg: FieldValues,
   id: string
 ): Promise<any> => {
+  console.log("ProfileImg: ", ProfileImg);
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/auth/changeProfileImg/${id}`,
       {
         method: "PATCH",
-        body: ProfileImg,
+
         headers: {
+          "Content-type": "application/json",
           Authorization: (await cookies()).get("accessToken")!.value,
         },
+        body: JSON.stringify(ProfileImg),
       }
     );
     revalidateTag("User");
