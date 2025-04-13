@@ -107,6 +107,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import StarRating from "../starRating/StarRating";
+import ShowRating from "../starRating/ShowRating";
 
 const HomeComponent = () => {
   const [tutors, setTutors] = useState<ITutor[] | []>([]);
@@ -127,7 +129,7 @@ const HomeComponent = () => {
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  const { user } = useUser();
+  const { user, ratings } = useUser();
 
   const form = useForm();
 
@@ -273,8 +275,13 @@ const HomeComponent = () => {
   };
 
   const onSubmit = async (data: FieldValues) => {
-    const rating = Number(data?.rating);
-    const review = { ...data, rating, tutor: tutorId, student: isUser[0]?._id };
+    const review = {
+      ...data,
+      rating: ratings,
+      tutor: tutorId,
+      student: isUser[0]?._id,
+    };
+
     try {
       setLoading(true);
       const res = await createReviewComments(review);
@@ -286,6 +293,19 @@ const HomeComponent = () => {
       console.log(error);
     }
   };
+
+  const ratingsMap: any = {};
+  reviews?.forEach(({ tutor, rating }) => {
+    if (!ratingsMap[tutor._id]) {
+      ratingsMap[tutor._id] = [];
+    }
+    ratingsMap[tutor._id].push(rating);
+  });
+
+  const updatedTutors = filteredTutors?.map((tutor) => ({
+    ...tutor,
+    ratings: ratingsMap[tutor._id] || tutor.ratings,
+  }));
 
   return (
     <div>
@@ -617,7 +637,7 @@ const HomeComponent = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-3">
-          {filteredTutors?.map((tutor, index) => (
+          {updatedTutors?.map((tutor, index) => (
             <div
               key={tutor._id || index}
               className="card bg-base-100 w-[95%] group border border-gray-200 hover:shadow-lg"
@@ -645,19 +665,19 @@ const HomeComponent = () => {
                 <p className=" text-sm md:text-sm lg:text-lg text-gray-700 line-clamp-2">
                   {tutor.gradeLevel}
                 </p>
-                <div className="card-actions justify-between items-center">
+                <div>
                   <p>
                     <span className="text-sm md:text-sm lg:text-lg text-gray-700">
                       ${tutor.hourlyRate}
                     </span>{" "}
                     hr
                   </p>
-                  <div className="flex gap-1 text-sm md:text-sm lg:text-lg text-gray-700">
-                    <FaStar className="text-yellow-500" />
-                    <FaStar className="text-yellow-500" />
-                    <FaStarHalfAlt className="text-yellow-500" />
-                    <FaRegStar className="text-yellow-500" />
-                  </div>
+                </div>
+                <div className="flex items-center">
+                  <p className="max-w-[80px] ">
+                    Review ( {tutor?.ratings?.length} )
+                  </p>
+                  <ShowRating RatingShow={tutor?.ratings}></ShowRating>
                 </div>
                 <div className=" flex flex-wrap gap-y-2 justify-between  items-center">
                   {user?.role === "student" && (
@@ -711,26 +731,10 @@ const HomeComponent = () => {
                                       </FormItem>
                                     )}
                                   />
-                                  <FormField
-                                    control={form.control}
-                                    name="rating"
-                                    render={({ field }) => (
-                                      <FormItem>
-                                        <FormLabel>Your Rating</FormLabel>
-                                        <FormControl>
-                                          <Input
-                                            type="number"
-                                            className="border border-gray-400 "
-                                            {...field}
-                                            value={field.value || ""}
-                                          />
-                                        </FormControl>
-                                        <FormMessage className="text-red-500" />
-                                      </FormItem>
-                                    )}
-                                  />
                                 </div>
-
+                                <div className="mt-5">
+                                  <StarRating></StarRating>
+                                </div>
                                 <div>
                                   <Button
                                     onClick={() => setTutorId(tutor?._id)}
@@ -742,6 +746,7 @@ const HomeComponent = () => {
                                 </div>
                               </form>
                             </Form>
+
                             <DialogFooter></DialogFooter>
                           </DialogContent>
                         </Dialog>
@@ -782,8 +787,8 @@ const HomeComponent = () => {
                   className="md:basis-1/2 lg:basis-1/3"
                 >
                   <div className="p-1">
-                    <Card className="border-gray-300">
-                      <CardContent className="flex flex-col items-center justify-center p-4">
+                    <Card className="border-gray-300 h-[270px] ">
+                      <CardContent className="flex flex-col items-center justify-center p-4 ">
                         <Image
                           className="rounded-full"
                           src={review?.student?.profileImage}
@@ -797,12 +802,8 @@ const HomeComponent = () => {
                         <p className="text-sm text-gray-600 mt-2 line-clamp-2">
                           {review?.comment}
                         </p>
-
-                        <div className="flex gap-1 text-sm md:text-sm lg:text-lg text-gray-700">
-                          <FaStar className="text-yellow-500" />
-                          <FaStar className="text-yellow-500" />
-                          <FaStarHalfAlt className="text-yellow-500" />
-                          <FaRegStar className="text-yellow-500" />
+                        <div>
+                          <ShowRating RatingShow={review?.rating}></ShowRating>
                         </div>
                       </CardContent>
                     </Card>

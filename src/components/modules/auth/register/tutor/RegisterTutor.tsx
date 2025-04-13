@@ -77,9 +77,9 @@ const RegisterTutor = () => {
         data?.subjects.split(",").map((sub: string) => sub.trim()) || [],
       hourlyRate: Number(data?.hourlyRate) || 0,
       availability,
-      ratings: data?.ratings ? data?.ratings.split(",").map(Number) : [],
+      // ratings: data?.ratings ? data?.ratings.split(",").map(Number) : [],
     };
-    console.log(tutorData);
+    // console.log(tutorData);
 
     try {
       const res = await registerTutor(tutorData);
@@ -268,7 +268,7 @@ const RegisterTutor = () => {
               )}
             />
 
-            <FormField
+            {/* <FormField
               control={form.control}
               name="ratings"
               render={({ field }) => (
@@ -284,7 +284,7 @@ const RegisterTutor = () => {
                   <FormMessage className="text-red-500" />
                 </FormItem>
               )}
-            />
+            /> */}
           </div>
           <div>
             <div className="flex gap-5 items-center border-gray-300 border-t border-b py-3 my-5">

@@ -33,7 +33,7 @@ export const getAllReviewComments = async () => {
       `${process.env.NEXT_PUBLIC_BASE_URL}/reviews-comment/get`,
       {
         next: {
-          tags: ["Review"],
+          tags: ["Review", "bookings"],
         },
       }
     );
