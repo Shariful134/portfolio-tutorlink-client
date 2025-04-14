@@ -24,18 +24,22 @@ import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
 import { useUser } from "@/context/UserContext";
 
-// This is sample data.
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useUser();
+  console.log(user);
 
   const data = {
     navMain: [
       {
-        title: "Dashboard",
-        url: "/user/dashboard",
+        title: "My Account",
+        url: `/${user?.role}/dashboard`,
         icon: SquareTerminal,
-        isActive: true,
+        items: [
+          {
+            title: "Profile",
+            url: `/${user?.role}/dashboard`,
+          },
+        ],
       },
       {
         title: "My Bookings",
@@ -63,26 +67,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   url: "/tutor/bookingsHistory",
                 },
               ],
-      },
-
-      {
-        title: "Shop",
-        url: "/user/shop/products",
-        icon: Bot,
-        items: [
-          {
-            title: "Manage Products",
-            url: "/user/shop/products",
-          },
-          {
-            title: "Manage Categories",
-            url: "/user/shop/category",
-          },
-          {
-            title: "Manage Brands",
-            url: "/user/shop/brand",
-          },
-        ],
       },
 
       {

@@ -31,10 +31,10 @@ interface availability {
 const RegisterTutor = () => {
   const form = useForm({
     defaultValues: {
-      name: "Shariful2",
-      email: "shariful2@gmail.com",
+      name: "Shariful Islam",
+      email: "shariful@gmail.com",
       password: "Shariful!23",
-      phoneNumber: "+8801797579562",
+      phoneNumber: "+8800000000000",
       bio: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
       subjects: "",
       gradeLevel: "PostGraduate",
@@ -265,24 +265,6 @@ const RegisterTutor = () => {
                 </FormItem>
               )}
             />
-
-            {/* <FormField
-              control={form.control}
-              name="ratings"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>ratings</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="border border-gray-400 "
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            /> */}
           </div>
           <div>
             <div className="flex gap-5 items-center border-gray-300 border-t border-b py-3 my-5">
@@ -332,9 +314,9 @@ const RegisterTutor = () => {
             ))}
           </div>
 
-          <div className="w-full text-center flex flex-grow flex-col space-y-1  mt-2">
+          <div className="w-full text-center flex flex-grow flex-col space-y-1 mt-2">
             <Button
-              className=" w-sm cursor-pointer border-0 hover:border btn bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ..."
+              className=" w-[96px] cursor-pointer border-0 hover:border btn bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ..."
               type="submit"
             >
               {isSubmitting ? "Submiting..." : "Submit"}

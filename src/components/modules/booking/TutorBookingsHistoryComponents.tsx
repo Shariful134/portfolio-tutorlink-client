@@ -275,9 +275,9 @@ const TutorBookingsHistoryComponents = () => {
                         <td className="px-4 py-4  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
                         <td className="px-4 py-4  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
                         <td className="px-4 py-4  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-4  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap">
+                        <td className="px-4 py-2  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap">
                           <span className="font-semibold">Subtotal :</span>{" "}
-                          {totalEarnings} BDT
+                          {totalEarnings ? totalEarnings : 0} BDT
                         </td>
                       </tr>
                     </tbody>

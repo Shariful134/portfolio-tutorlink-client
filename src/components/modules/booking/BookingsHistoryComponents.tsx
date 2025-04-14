@@ -270,9 +270,9 @@ const BookingsHistoryComponents = () => {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td className="text-end pr-7 text-sm">
+                        <td className="text-end pt-1 text-sm">
                           <span className="font-semibold">SubTotal</span>:{" "}
-                          {totalEarnings} BTD
+                          {totalEarnings ? totalEarnings : 0} BTD
                         </td>
                       </tr>
                     </tbody>

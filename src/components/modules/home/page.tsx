@@ -30,7 +30,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   Dialog,
   DialogContent,
@@ -763,7 +763,21 @@ const HomeComponent = () => {
                                       key={review._id}
                                       className="flex gap-2 mb-5"
                                     >
-                                      {index + 1}.
+                                      {review?.student?.profileImage ? (
+                                        <Avatar>
+                                          <AvatarImage
+                                            src={review?.student?.profileImage}
+                                            alt="@shadcn"
+                                          />
+                                        </Avatar>
+                                      ) : (
+                                        <Avatar>
+                                          <AvatarImage
+                                            src="https://github.com/shadcn.png"
+                                            alt="@shadcn"
+                                          />
+                                        </Avatar>
+                                      )}
                                       <div>
                                         <div className="flex items-center gap-1">
                                           <h2 className="text-lg">

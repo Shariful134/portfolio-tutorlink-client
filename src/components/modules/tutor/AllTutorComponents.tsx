@@ -13,8 +13,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 export interface Availability {
   day: string;
   time: string;
@@ -43,7 +43,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "@/services/User";
 import Link from "next/link";
-import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
+
 import {
   createReviewComments,
   getAllReviewComments,
@@ -65,7 +65,7 @@ import {
 } from "@/components/ui/select";
 import { MessageSquareMore } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -74,6 +74,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import ShowRating from "../starRating/ShowRating";
 const AllTutorComponents = () => {
   const [tutors, setTutors] = useState<ITutor[] | []>([]);
   const [isUser, setIsUser] = useState<ITutor[] | []>([]);
@@ -81,6 +82,7 @@ const AllTutorComponents = () => {
   const [error, setError] = useState<string | null>(null);
   const [requestedTutors, setRequestedTutors] = useState<string[]>([]);
   const [acceptedTutors, setAccetedTutors] = useState<string[]>([]);
+  const [reviews, setReviews] = useState<IReview[] | []>([]);
 
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -90,7 +92,7 @@ const AllTutorComponents = () => {
 
   const [tutorId, setTutorId] = useState("");
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const { user } = useUser();
+  const { user, ratings } = useUser();
 
   const form = useForm();
 
@@ -100,6 +102,8 @@ const AllTutorComponents = () => {
         setLoading(true);
 
         const usersData = await getAllUsers();
+        const data = await getAllReviewComments();
+        setReviews(data?.data);
 
         const loggedUser = usersData?.data?.filter(
           (item: ITutor) => item.email === user?.userEmail
@@ -244,6 +248,21 @@ const AllTutorComponents = () => {
       console.log(error);
     }
   };
+
+  const ratingsMap: any = {};
+  reviews?.forEach(({ tutor, rating }) => {
+    if (!ratingsMap[tutor?._id]) {
+      ratingsMap[tutor?._id] = [];
+    }
+    ratingsMap[tutor?._id].push(rating);
+  });
+
+  const updatedTutors = filteredTutors?.map((tutor) => ({
+    ...tutor,
+    ratings: ratingsMap[tutor?._id] || tutor?.ratings,
+  }));
+
+  console.log("review: ", reviews);
   return (
     <div>
       <div>
@@ -340,12 +359,12 @@ const AllTutorComponents = () => {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-3">
-            {!Array.isArray(filteredTutors) || filteredTutors?.length === 0 ? (
+            {!Array.isArray(updatedTutors) || updatedTutors?.length === 0 ? (
               <div className="h-[300px] text-black text-xl md:text-3xl">
                 Not Found Tutor Data
               </div>
             ) : (
-              filteredTutors?.map((tutor, index) => (
+              updatedTutors?.map((tutor, index) => (
                 <div
                   key={tutor._id || index}
                   className="card bg-base-100 w-[95%] group border border-gray-200 hover:shadow-lg"
@@ -373,18 +392,18 @@ const AllTutorComponents = () => {
                     <p className=" text-sm md:text-sm lg:text-lg text-gray-700 line-clamp-2">
                       {tutor.gradeLevel}
                     </p>
-                    <div className="card-actions justify-between items-center">
+                    <div className="card-actions flex-col ">
                       <p>
                         <span className="text-sm md:text-sm lg:text-lg text-gray-700">
                           ${tutor.hourlyRate}
                         </span>{" "}
                         hr
                       </p>
-                      <div className="flex gap-1 text-sm md:text-sm lg:text-lg text-gray-700">
-                        <FaStar className="text-yellow-500" />
-                        <FaStar className="text-yellow-500" />
-                        <FaStarHalfAlt className="text-yellow-500" />
-                        <FaRegStar className="text-yellow-500" />
+                      <div className="flex items-center">
+                        <p className="max-w-[80px] ">
+                          Review ( {tutor?.ratings?.length} )
+                        </p>
+                        <ShowRating RatingShow={tutor?.ratings[0]}></ShowRating>
                       </div>
                     </div>
                     <div className=" flex flex-wrap gap-y-2 justify-between  items-center">
@@ -415,7 +434,7 @@ const AllTutorComponents = () => {
                                   <MessageSquareMore />
                                 </Button>
                               </DialogTrigger>
-                              <DialogContent className="sm:max-w-[425px] bg-white">
+                              <DialogContent className="sm:max-w-[425px] max-h-[600px] bg-white">
                                 <DialogHeader>
                                   <DialogTitle></DialogTitle>
                                   <DialogDescription></DialogDescription>
@@ -470,6 +489,52 @@ const AllTutorComponents = () => {
                                     </div>
                                   </form>
                                 </Form>
+                                <div className="max-h-[72%] overflow-y-auto">
+                                  {reviews
+                                    ?.filter(
+                                      (review: any) =>
+                                        review?.tutor?._id === tutor?._id
+                                    )
+                                    .map((review, index) => (
+                                      <div
+                                        key={review._id}
+                                        className="flex gap-2 mb-5"
+                                      >
+                                        {review?.student?.profileImage ? (
+                                          <Avatar>
+                                            <AvatarImage
+                                              src={
+                                                review?.student?.profileImage
+                                              }
+                                              alt="@shadcn"
+                                            />
+                                          </Avatar>
+                                        ) : (
+                                          <Avatar>
+                                            <AvatarImage
+                                              src="https://github.com/shadcn.png"
+                                              alt="@shadcn"
+                                            />
+                                          </Avatar>
+                                        )}
+                                        <div>
+                                          <div className="flex items-center gap-1 ">
+                                            <h2 className="text-lg">
+                                              {review?.student?.name}
+                                            </h2>
+                                            <p>
+                                              <ShowRating
+                                                RatingShow={review?.rating}
+                                              ></ShowRating>
+                                            </p>
+                                          </div>
+                                          <p className="text-sm md:text-sm ">
+                                            {review?.comment}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    ))}
+                                </div>
                                 <DialogFooter></DialogFooter>
                               </DialogContent>
                             </Dialog>
