@@ -266,27 +266,27 @@ const AllTutorComponents = () => {
   return (
     <div>
       <div>
-        <div className="px-10 mt-10 pt-10">
+        <div className="px-10 mt-15 md:mt-20">
           <div>
             {" "}
             <h2 className="text-xl md:text-2xl lg:text-4xl  ">
               Tutors of <span className="text-pink-500">e_Learn Tutorlink</span>
             </h2>
-            <p className="text-sm md:text-sm lg:text-lg text-gray-700 mt-4 max-w-3xl pb-5">
+            <p className="text-sm md:text-sm lg:text-lg text-gray-700 mt-4 max-w-3xl pb-1 md:pb-5">
               Looking for the best tutors? TutorLink 🎓 connects students with
               expert tutors for personalized learning. Find tutors by subject,
               grade, or expertise and book sessions effortlessly. Learn smarter,
               achieve more!
             </p>
-            <div className="py-5 flex flex-wrap gap-2">
+            <div className="py-5 flex flex-wrap gap-2 justify-center md:justify-start">
               <input
                 type="text"
                 onChange={(e) => setSearchValue(e.currentTarget.value)}
                 placeholder="Search for tutors"
-                className=" w-full max-w-[30%] rounded-md border border-gray-400 px-5  text-sm md:text-sm lg:text-lg text-gray-700"
+                className="min-w-[200px] max-w-[30%] min-h-[37px] rounded-md border border-gray-400 px-5  text-sm md:text-sm lg:text-lg text-gray-700"
               />
               <Select onValueChange={handleCategoryChange}>
-                <SelectTrigger className="max-w-[30%] rounded-md border border-gray-400 ">
+                <SelectTrigger className="min-w-[200px] max-w-[30%] rounded-md border border-gray-400 ">
                   <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
                 <SelectContent className="bg-white rounded-md border border-gray-400">
@@ -305,7 +305,7 @@ const AllTutorComponents = () => {
 
               {selectedCategory === "All" ? (
                 <Select onValueChange={handleSubjectChange}>
-                  <SelectTrigger className="max-w-[30%] rounded-md border border-gray-400 ">
+                  <SelectTrigger className="min-w-[200px] max-w-[30%] rounded-md border border-gray-400 ">
                     <SelectValue placeholder="Select Subjects" />
                   </SelectTrigger>
                   <SelectContent className="bg-white rounded-md border border-gray-400">
@@ -323,7 +323,7 @@ const AllTutorComponents = () => {
                 </Select>
               ) : (
                 <Select onValueChange={handleSubjectChange}>
-                  <SelectTrigger className="max-w-[30%] rounded-md border border-gray-400 ">
+                  <SelectTrigger className="min-w-[200px] max-w-[30%] rounded-md border border-gray-400 ">
                     <SelectValue placeholder="Select Subjects" />
                   </SelectTrigger>
                   <SelectContent className="bg-white rounded-md border border-gray-400">
@@ -343,7 +343,7 @@ const AllTutorComponents = () => {
               )}
 
               <Select onValueChange={handlePriceChange}>
-                <SelectTrigger className="max-w-[30%] rounded-md border border-gray-400 ">
+                <SelectTrigger className="min-w-[200px] max-w-[30%] rounded-md border border-gray-400 ">
                   <SelectValue placeholder="Select Price" />
                 </SelectTrigger>
                 <SelectContent className="bg-white rounded-md border border-gray-400">

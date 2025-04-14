@@ -79,7 +79,7 @@ const UpdateProfileStudent = () => {
       ...data,
       profileImage,
     };
-    console.log("updatedData: ", updatedData);
+
     try {
       const res = await updateProfile(updatedData, currentUser?._id);
       console.log("res: ", res);
@@ -94,7 +94,7 @@ const UpdateProfileStudent = () => {
   };
 
   return (
-    <div className="w-full flex-grow  max-w-md p-5 rounded">
+    <div className="w-full flex-grow  max-w-md rounded">
       <div className="mb-5 text-center text-2xl">Update Profile</div>
       <div className="flex flex-col items-center mb-5 ">
         {" "}

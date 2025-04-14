@@ -87,7 +87,7 @@ const BlogsComponents = () => {
     );
 
   return (
-    <div className="pb-5">
+    <div className="pb-0 md:pb-5">
       <div className="relative">
         <Image
           src={photo}

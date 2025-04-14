@@ -310,7 +310,7 @@ const HomeComponent = () => {
   return (
     <div>
       {/* =============================Banner section=========================== */}
-      <div className="flex flex-col md:flex-row px-5 md:px-10 items-center pt-20">
+      <div className="flex flex-col md:flex-row px-5 md:px-10 items-center pt-15 md:pt-20">
         <div className="pt-5 text-center md:text-start">
           <h2 className="text-2xl md:text-3xl lg:text-5xl  ">
             Learn Better, <span className="text-pink-500">AcademyNest !</span>
@@ -326,7 +326,7 @@ const HomeComponent = () => {
             <input
               type="text"
               placeholder="Search for tutors"
-              className=" w-full max-w-6xl rounded-md border border-gray-400 px-5  text-sm md:text-sm lg:text-lg text-gray-700"
+              className=" w-full min-h-[37px] max-w-6xl rounded-md border border-gray-400 px-5  text-sm md:text-sm lg:text-lg text-gray-700"
             />
           </div>
           <Button
@@ -506,7 +506,7 @@ const HomeComponent = () => {
       </div>
 
       {/* =============================benifit section======================== */}
-      <div className="flex flex-col-reverse md:flex-row px-5 md:px-10 items-center gap-5 mt-10 pt-10">
+      <div className="flex flex-col-reverse md:flex-row px-10 md:px-10 items-center gap-5 mt-5 md:mt-15">
         <div className="flex justify-center">
           <Image
             src={groupd}
@@ -544,27 +544,27 @@ const HomeComponent = () => {
       </div>
 
       {/* ====================tutors section========================== */}
-      <div className="px-10 mt-10 pt-10">
+      <div className="px-10 mt-5 md:mt-15">
         <div>
           {" "}
           <h2 className="text-xl md:text-2xl lg:text-4xl  ">
             Tutors of <span className="text-pink-500">e_Learn Tutorlink</span>
           </h2>
-          <p className="text-sm md:text-sm lg:text-lg text-gray-700 mt-4 max-w-3xl pb-5">
+          <p className="text-sm md:text-sm lg:text-lg text-gray-700 mt-4 max-w-3xl md:pb-5">
             Looking for the best tutors? TutorLink 🎓 connects students with
             expert tutors for personalized learning. Find tutors by subject,
             grade, or expertise and book sessions effortlessly. Learn smarter,
             achieve more!
           </p>
-          <div className="py-5 flex flex-wrap gap-2">
+          <div className="py-5 flex flex-wrap justify-center md:justify-start gap-2">
             <input
               type="text"
               onChange={(e) => setSearchValue(e.currentTarget.value)}
               placeholder="Search for tutors"
-              className=" w-full max-w-[30%] rounded-md border border-gray-400 px-5  text-sm md:text-sm lg:text-lg text-gray-700"
+              className=" min-w-[200px] max-w-[30%] min-h-[37px] rounded-md border border-gray-400 px-5  text-sm md:text-sm lg:text-lg text-gray-700"
             />
             <Select onValueChange={handleCategoryChange}>
-              <SelectTrigger className="max-w-[30%] rounded-md border border-gray-400 ">
+              <SelectTrigger className="min-w-[200px] max-w-[30%]  rounded-md border border-gray-400 ">
                 <SelectValue placeholder="Select Category" />
               </SelectTrigger>
               <SelectContent className="bg-white rounded-md border border-gray-400">
@@ -583,7 +583,7 @@ const HomeComponent = () => {
 
             {selectedCategory === "All" ? (
               <Select onValueChange={handleSubjectChange}>
-                <SelectTrigger className="max-w-[30%] rounded-md border border-gray-400 ">
+                <SelectTrigger className="min-w-[200px] max-w-[30%] rounded-md border border-gray-400 ">
                   <SelectValue placeholder="Select Subjects" />
                 </SelectTrigger>
                 <SelectContent className="bg-white rounded-md border border-gray-400">
@@ -601,7 +601,7 @@ const HomeComponent = () => {
               </Select>
             ) : (
               <Select onValueChange={handleSubjectChange}>
-                <SelectTrigger className="max-w-[30%] rounded-md border border-gray-400 ">
+                <SelectTrigger className="min-w-[200px] max-w-[30%] rounded-md border border-gray-400 ">
                   <SelectValue placeholder="Select Subjects" />
                 </SelectTrigger>
                 <SelectContent className="bg-white rounded-md border border-gray-400">
@@ -621,7 +621,7 @@ const HomeComponent = () => {
             )}
 
             <Select onValueChange={handlePriceChange}>
-              <SelectTrigger className="max-w-[30%] rounded-md border border-gray-400 ">
+              <SelectTrigger className="min-w-[200px] max-w-[30%] rounded-md border border-gray-400 ">
                 <SelectValue placeholder="Select Price" />
               </SelectTrigger>
               <SelectContent className="bg-white rounded-md border border-gray-400">
@@ -817,7 +817,7 @@ const HomeComponent = () => {
         {!Array.isArray(updatedTutors) || updatedTutors?.length === 0 ? (
           ""
         ) : (
-          <div className="mx-auto text-center mt-5">
+          <div className="mx-auto text-center mt-2 md:mt-5">
             <Link href={"/tutors"}>
               <Button className="roudend-full cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ...">
                 View All
@@ -827,9 +827,9 @@ const HomeComponent = () => {
         )}
       </div>
       {/* =====================================student sayas section====================== */}
-      <div className="mt-10 px-10 pt-10">
+      <div className=" px-10 mt-5 md:mt-15">
         <div>
-          <h2 className="text-xl md:text-2xl lg:text-4xl mb-5">
+          <h2 className="text-xl md:text-2xl lg:text-4xl text-center md:text-start mb-5">
             Our Student <span className="text-pink-500">Says</span>
           </h2>
         </div>
@@ -872,7 +872,7 @@ const HomeComponent = () => {
         </div>
       </div>
       {/* =========================ask qs ====================== */}
-      <div className="px-10 mt-10 pt-10">
+      <div className="px-10 mt-5 md:mt-15">
         <div className="flex gap-5">
           <div>
             <h2 className="text-xl md:text-2xl lg:text-4xl  ">

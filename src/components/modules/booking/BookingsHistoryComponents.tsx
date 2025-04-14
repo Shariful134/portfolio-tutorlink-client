@@ -93,20 +93,20 @@ const BookingsHistoryComponents = () => {
     }
   };
   return (
-    <div className="pt-5">
+    <div className="pt-0 md:pt-5">
       <h2>BookingHistory</h2>
       <div className="pt-5 ">
-        <section className="container ps-8">
+        <section className="container px-4">
           <div className="flex flex-col">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 align-middle">
                 <div className="overflow-hidden ">
-                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700  ml-4">
                     <thead className="bg-gray-400/55 dark:bg-gray-800 border-b-black">
-                      <tr>
+                      <tr className="">
                         <th
                           scope="col"
-                          className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right t0 dark:text-gray-400"
+                          className="py-3.5 px-2  text-sm font-normal text-left rtl:text-right t0 dark:text-gray-400"
                         >
                           <div className="flex items-center gap-x-3">
                             <button className="flex items-center gap-x-2">
@@ -171,7 +171,7 @@ const BookingsHistoryComponents = () => {
                         </th>
                         <th
                           scope="col"
-                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right  dark:text-gray-400"
+                          className="px-4 pe-6 py-3.5 text-sm font-normal text-left rtl:text-right w-[25px]  dark:text-gray-400"
                         >
                           Actions
                         </th>
@@ -179,8 +179,8 @@ const BookingsHistoryComponents = () => {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
                       {invoices?.map((booking, index) => (
-                        <tr key={index} className="border-b-black bg-gray-200">
-                          <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        <tr key={index} className="border-b-black bg-gray-100">
+                          <td className="px-2 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                             <div className="inline-flex items-center gap-x-3">
                               <span>{booking.name}</span>
                             </div>
@@ -259,22 +259,26 @@ const BookingsHistoryComponents = () => {
                           </td>
                         </tr>
                       ))}
-                      <tr className="border-b-black text-start">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td className="text-end pt-1 text-sm">
-                          <span className="font-semibold">SubTotal</span>:{" "}
-                          {totalEarnings ? totalEarnings : 0} BTD
-                        </td>
-                      </tr>
+                      {!Array.isArray(invoices) || invoices?.length === 0 ? (
+                        ""
+                      ) : (
+                        <tr className="border-b-black text-start">
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>{""}</td>
+                          <td className="text-end pr-7 text-sm w-[25px] ">
+                            <span className="font-semibold">SubTotal</span>:{" "}
+                            {totalEarnings} BTD
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>

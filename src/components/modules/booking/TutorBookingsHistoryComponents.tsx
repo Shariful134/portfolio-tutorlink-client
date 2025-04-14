@@ -264,22 +264,26 @@ const TutorBookingsHistoryComponents = () => {
                           </td>
                         </tr>
                       ))}
-                      <tr className="border-b-black">
-                        <td className="px-4 py-4 text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-4 text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-4 text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-4 text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-4  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-4  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-4  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-4  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-4  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-4  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap"></td>
-                        <td className="px-4 py-2  text-sm font-medium text-gray-700 text-center dark:text-gray-200 whitespace-nowrap">
-                          <span className="font-semibold">Subtotal :</span>{" "}
-                          {totalEarnings ? totalEarnings : 0} BDT
-                        </td>
-                      </tr>
+                      {!Array.isArray(invoices) || invoices?.length === 0 ? (
+                        ""
+                      ) : (
+                        <tr className="border-b-black text-start">
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td className="text-end pr-7 text-sm w-[25px] ">
+                            <span className="font-semibold">SubTotal</span>:{" "}
+                            {totalEarnings} BTD
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
