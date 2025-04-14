@@ -116,7 +116,7 @@ const BlogsComponents = () => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-15 sm:justify-start ">
-        <div className="w-full md:w-[70%] lg:w-[50%]  order-2 md:order-1 ">
+        <div className="w-full md:w-[70%] lg:w-[50%]  order-2 md:order-1  ">
           {education?.slice(6, 7)?.map((article: NewsArticle, index) => (
             <div key={index} className="mt-5 mb-5">
               <Image
@@ -234,7 +234,7 @@ const BlogsComponents = () => {
             </div>
           ))}
         </div>
-        <div className="w-full hidden lg:inline lg:w-[25%]  order-1 md:order-2 mt-5">
+        <div className="w-full hidden lg:inline lg:w-[25%]  order-3 md:order-2 mt-5">
           <Input
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search here"
@@ -271,7 +271,7 @@ const BlogsComponents = () => {
           <div>
             {searchQuery === "" ? (
               <div>
-                <h2 className="text-2xl py-3 bg-gray-200 my-5 ps-3">
+                <h2 className="text-2xl py-3 bg-gray-200 my-5 ps-3 ">
                   Recently Updates
                 </h2>
                 <div>
@@ -280,7 +280,7 @@ const BlogsComponents = () => {
                     ?.map((article: NewsArticle, index) => (
                       <div
                         key={index}
-                        className="mt-5 flex flex-col md:flex-row gap-2  "
+                        className="mt-5 flex flex-col md:flex-row gap-2  overflow-hidden"
                       >
                         <Image
                           src={article?.image}
@@ -299,7 +299,7 @@ const BlogsComponents = () => {
                               {article?.title}
                             </Link>
                           </h2>
-                          <div className="flex items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                          <div className=" text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
                             {" "}
                             {article?.publishedAt}
                           </div>
@@ -316,7 +316,7 @@ const BlogsComponents = () => {
                     ?.map((article: NewsArticle, index) => (
                       <div
                         key={index}
-                        className="mt-5 flex flex-col md:flex-row gap-2"
+                        className="mt-5 flex flex-col md:flex-row gap-2 overflow-hidden"
                       >
                         <Image
                           src={article?.image}
@@ -349,7 +349,7 @@ const BlogsComponents = () => {
                     ?.map((article: NewsArticle, index) => (
                       <div
                         key={index}
-                        className="mt-5 flex flex-col md:flex-row gap-2  "
+                        className="mt-5 flex flex-col md:flex-row gap-2 overflow-hidden "
                       >
                         <Image
                           src={article?.image}
@@ -386,7 +386,7 @@ const BlogsComponents = () => {
                     {educationFiltered?.map((article: NewsArticle, index) => (
                       <div
                         key={index}
-                        className="mt-5 flex flex-col md:flex-row gap-2"
+                        className="mt-5 flex flex-col md:flex-row gap-2 overflow-hidden"
                       >
                         <Image
                           src={article?.image}
@@ -420,7 +420,7 @@ const BlogsComponents = () => {
                   {industrialFiltered?.map((article: NewsArticle, index) => (
                     <div
                       key={index}
-                      className="mt-5 flex flex-col md:flex-row gap-2  "
+                      className="mt-5 flex flex-col md:flex-row gap-2  overflow-hidden"
                     >
                       <Image
                         src={article?.image}
@@ -450,106 +450,8 @@ const BlogsComponents = () => {
               </div>
             )}
           </div>
-          {/* <div>
-            {" "}
-            <h2 className="text-2xl pt-10">Recently Posted</h2>
-            <div>
-              {education?.slice(0, 3)?.map((article: NewsArticle, index) => (
-                <div
-                  key={index}
-                  className="mt-5 flex flex-col md:flex-row gap-2"
-                >
-                  <Image
-                    src={article?.image}
-                    width={100}
-                    height={100}
-                    priority={true}
-                    alt="blogImage"
-                    className="rounded-lg"
-                  ></Image>
-                  <div className="">
-                    <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
-                      <Link
-                        className="hover:underline hover:text-purple-500"
-                        href={article?.url}
-                      >
-                        {article?.title}
-                      </Link>
-                    </h2>
-                    <div className="flex items-center line-clamp-1 text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
-                      {" "}
-                      {article?.publishedAt}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div>
-              {industrial?.slice(0, 2)?.map((article: NewsArticle, index) => (
-                <div
-                  key={index}
-                  className="mt-5 flex flex-col md:flex-row gap-2  "
-                >
-                  <Image
-                    src={article?.image}
-                    width={100}
-                    height={1300}
-                    priority={true}
-                    alt="blogImage"
-                    className="rounded-lg "
-                  ></Image>
-                  <div className="">
-                    <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
-                      <Link
-                        className="hover:underline hover:text-purple-500"
-                        href={article?.url}
-                      >
-                        {article?.title}
-                      </Link>
-                    </h2>
-                    <div className="flex items-center line-clamp-1 text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
-                      {" "}
-                      {article?.publishedAt}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <h2 className="text-2xl pt-10">Recently Updates</h2>
-            <div>
-              {industrial?.slice(2, 4)?.map((article: NewsArticle, index) => (
-                <div
-                  key={index}
-                  className="mt-5 flex flex-col md:flex-row gap-2  "
-                >
-                  <Image
-                    src={article?.image}
-                    width={100}
-                    height={1300}
-                    priority={true}
-                    alt="blogImage"
-                    className="rounded-lg "
-                  ></Image>
-                  <div className="">
-                    <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
-                      <Link
-                        className="hover:underline hover:text-purple-500"
-                        href={article?.url}
-                      >
-                        {article?.title}
-                      </Link>
-                    </h2>
-                    <div className="flex items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
-                      {" "}
-                      {article?.publishedAt}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div> */}
         </div>
-        <div className=" w-full md:w-[30%] lg:w-[25%]  order-3">
+        <div className=" w-full md:w-[30%] lg:w-[25%]  order-1 md:order-3">
           <h2 className="text-2xl my-5 "></h2>
           <div className="bg-gray-200 grid grid-cols-12 ">
             <p
@@ -582,7 +484,7 @@ const BlogsComponents = () => {
               industrial?.map((article: NewsArticle, index) => (
                 <div
                   key={index}
-                  className="mt-5 flex flex-col md:flex-row gap-2  "
+                  className="mt-5 flex flex-col md:flex-row gap-2  overflow-hidden"
                 >
                   <Image
                     src={article?.image}
@@ -614,7 +516,7 @@ const BlogsComponents = () => {
               education?.map((article: NewsArticle, index) => (
                 <div
                   key={index}
-                  className="mt-5 flex flex-col md:flex-row gap-2  "
+                  className="mt-5 flex flex-col md:flex-row gap-2 overflow-hidden "
                 >
                   <Image
                     src={article?.image}
@@ -647,7 +549,7 @@ const BlogsComponents = () => {
                 (article: NewsArticle, index) => (
                   <div
                     key={index}
-                    className="mt-5 flex flex-col md:flex-row gap-2  "
+                    className="mt-5 flex flex-col md:flex-row gap-2 overflow-hidden "
                   >
                     <Image
                       src={article?.image}
