@@ -148,15 +148,20 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
                   <FaRegStar className="text-yellow-500" />
                 </div>
               </div>
-              <div className="card-body">
+              <div className="card-body ">
                 <div className="flex justify-center items-center">
-                  <h2 className="card-title text-xl ">{tutorData?.name} </h2>
+                  <h2 className="card-title text-sm sm:text-xl ">
+                    {tutorData?.name}{" "}
+                  </h2>
                   <p className=" text-sm md:text-sm  text-gray-700 ">
                     ( {tutorData?.gradeLevel})
                   </p>
                 </div>
-                <p className=" text-sm md:text-sm font-semibold lg:text-lg text-gray-700 ">
-                  {tutorData?.category}
+                <p className="  text-gray-700 ">
+                  <span className="font-semibold text-sm md:text-smlg:text-lg">
+                    {tutorData?.category}
+                  </span>
+                  (category)
                 </p>
                 <p className=" text-sm md:text-sm lg:text-lg text-gray-700 ">
                   <span className="text-gray-900">Subject: </span>{" "}
