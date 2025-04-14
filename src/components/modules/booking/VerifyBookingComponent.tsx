@@ -49,7 +49,7 @@ const VerifyBookingComponent = () => {
     <div className="px-10 ">
       <div
         ref={contentRef}
-        className="max-w-[793px]  bg-gray-100/50 p-5 pt-10 "
+        className="w-[240px] sm:w-[550px] max-w-[793px] bg-gray-100/50 p-5 pt-10 mx-auto"
       >
         <div className="flex justify-between ">
           <div>
@@ -59,6 +59,7 @@ const VerifyBookingComponent = () => {
               priority={true}
               src={logo}
               alt="logo"
+              className="hidden sm:inline"
             ></Image>
           </div>
           <div className="text-end">
@@ -74,39 +75,39 @@ const VerifyBookingComponent = () => {
         <hr className="text-gray-400 my-2" />
         {bookingData?.map((booking, index) => (
           <div key={index}>
-            <div className="flex justify-between ">
-              <div className="text-start">
-                <h3 className=" text-lg ">Invoice To: </h3>
-                <p className="text-md sm:text-xl">{booking.name}</p>
+            <div className="flex flex-col md:flex-row justify-between ">
+              <div className=" sm:text-start mb-2 sm:mb-0">
+                <h3 className="text-sm sm:text-lg ">Invoice To: </h3>
+                <p className=" text-xs sm:text-md ">{booking.name}</p>
                 <p className="text-xs sm:text-sm">{booking.address}</p>
                 <p className="text-xs sm:text-sm text-cyan-600">
                   {booking.email}
                 </p>
               </div>
               <div className="text-end">
-                <h3 className=" text-2xl text-cyan-600 ">
+                <h3 className="text-xs sm:text-2xl text-cyan-600 ">
                   INVOICE No: {booking.invoice_no}{" "}
                 </h3>
                 <p className="text-xs sm:text-sm">Date: {booking.date_time}</p>
               </div>
             </div>
             <div className="mt-5">
-              <div className=" text-xs  sm:text-sm border-b-1 border-b-white text-center bg-gray-100 py-2  w-full">
+              <div className="text-xs sm:text-sm border-b-1 border-b-white text-center bg-gray-100 py-2  w-full">
                 <p>PAYMENT SUMMERY</p>
               </div>
-              <div className=" grid grid-cols-4 px-2 text-xs sm:text-sm border-b-1 border-b-white bg-gray-100 py-2  w-full">
+              <div className=" grid grid-cols-2 sm:grid-cols-4 px-2 text-xs sm:text-sm border-b-1 border-b-white bg-gray-100 py-2  w-full">
                 <p>Payment Status:</p>
                 <p>{booking.bank_status}</p>
                 <p>Method:</p>
                 <p>{booking.method}</p>
               </div>
-              <div className=" grid grid-cols-4 px-2 text-xs sm:text-sm border-b-1 border-b-white bg-gray-100 py-2  w-full">
+              <div className=" grid grid-cols-2 sm:grid-cols-4 px-2 text-xs sm:text-sm border-b-1 border-b-white bg-gray-100 py-2  w-full">
                 <p>Amount:</p>
                 <p>{booking.amount} BDT</p>
                 <p>Currency:</p>
                 <p>{booking.currency}</p>
               </div>
-              <div className=" grid grid-cols-4 px-2 text-xs sm:text-sm border-b-1 border-b-white bg-gray-100 py-2  w-full">
+              <div className=" grid grid-cols-2 sm:grid-cols-4 px-2 text-xs sm:text-sm border-b-1 border-b-white bg-gray-100 py-2  w-full">
                 <p>Card_number:</p>
                 <p>{booking.card_number} BDT</p>
               </div>
@@ -125,7 +126,7 @@ const VerifyBookingComponent = () => {
           </div>
         ))}
       </div>
-      <div className="text-center max-w-3xl">
+      <div className="text-center max-w-3xl mx-auto">
         <Button
           onClick={() => reactToPrintFn()}
           variant="outline"
