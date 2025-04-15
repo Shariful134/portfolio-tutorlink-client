@@ -116,7 +116,7 @@ const BlogsComponents = () => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-15 sm:justify-start ">
-        <div className="w-full md:w-[70%] lg:w-[50%]  order-2 md:order-1  ">
+        <div className="hidden sm:inline w-full md:w-[70%] lg:w-[50%]  order-2 md:order-1  ">
           {education?.slice(6, 7)?.map((article: NewsArticle, index) => (
             <div key={index} className="mt-5 mb-5">
               <Image
@@ -479,7 +479,254 @@ const BlogsComponents = () => {
               All News{" "}
             </p>
           </div>
-          <div>
+
+          <div className="inline sm:hidden">
+            {selectTab === "Industry" &&
+              industrial?.map((article: NewsArticle, index) => (
+                <div key={index} className="mt-5 mb-5">
+                  <Image
+                    src={article?.image}
+                    width={1900}
+                    height={900}
+                    priority={true}
+                    alt="blogImage"
+                    className="rounded-lg"
+                  ></Image>
+                  <div className="flex items-center gap-5 pt-1 pb-2">
+                    <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                      {" "}
+                      <RiAdminFill />
+                      Admin
+                    </div>
+                    <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                      {" "}
+                      <MdDateRange />
+                      {curretntdate}
+                    </div>
+                    <div className=" sm:flex hidden  justify-center items-center text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                      {" "}
+                      <FaTag />
+                      HandeMade
+                    </div>
+                  </div>
+                  <h2 className="text-2xl font-semibold text-gray-700 ">
+                    <Link
+                      className="hover:underline hover:text-purple-500"
+                      href={article?.url}
+                    >
+                      {article?.title}
+                    </Link>
+                  </h2>
+                  {educationData ? (
+                    <p className="text-sm md:text-sm lg:text-lg text-gray-700 ">
+                      {contentwords}{" "}
+                      <button
+                        onClick={() => setEducationData(false)}
+                        className="text-purple-500 hover:underline"
+                      >
+                        Read Less...
+                      </button>
+                    </p>
+                  ) : (
+                    <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                      {contentword}{" "}
+                      <button
+                        onClick={() => setEducationData(true)}
+                        className="text-purple-500 hover:underline"
+                      >
+                        Read More...
+                      </button>
+                    </p>
+                  )}
+                </div>
+              ))}
+          </div>
+          <div className="inline sm:hidden">
+            {selectTab === "Education" &&
+              education?.map((article: NewsArticle, index) => (
+                <div key={index} className="mt-5 mb-5">
+                  <Image
+                    src={article?.image}
+                    width={1900}
+                    height={900}
+                    priority={true}
+                    alt="blogImage"
+                    className="rounded-lg"
+                  ></Image>
+                  <div className="flex items-center gap-5 pt-1 pb-2">
+                    <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                      {" "}
+                      <RiAdminFill />
+                      Admin
+                    </div>
+                    <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                      {" "}
+                      <MdDateRange />
+                      {curretntdate}
+                    </div>
+                    <div className=" sm:flex hidden  justify-center items-center text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                      {" "}
+                      <FaTag />
+                      HandeMade
+                    </div>
+                  </div>
+                  <h2 className="text-2xl font-semibold text-gray-700 ">
+                    <Link
+                      className="hover:underline hover:text-purple-500"
+                      href={article?.url}
+                    >
+                      {article?.title}
+                    </Link>
+                  </h2>
+                  {educationData ? (
+                    <p className="text-sm md:text-sm lg:text-lg text-gray-700 ">
+                      {contentwords}{" "}
+                      <button
+                        onClick={() => setEducationData(false)}
+                        className="text-purple-500 hover:underline"
+                      >
+                        Read Less...
+                      </button>
+                    </p>
+                  ) : (
+                    <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                      {contentword}{" "}
+                      <button
+                        onClick={() => setEducationData(true)}
+                        className="text-purple-500 hover:underline"
+                      >
+                        Read More...
+                      </button>
+                    </p>
+                  )}
+                </div>
+              ))}
+          </div>
+
+          <div className="inline sm:hidden">
+            {selectTab === "All News" && (
+              <div>
+                {industrial?.map((article: NewsArticle, index) => (
+                  <div key={index} className="mt-5 mb-5">
+                    <Image
+                      src={article?.image}
+                      width={1900}
+                      height={900}
+                      priority={true}
+                      alt="blogImage"
+                      className="rounded-lg"
+                    ></Image>
+                    <div className="flex items-center gap-5 pt-1 pb-2">
+                      <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        <RiAdminFill />
+                        Admin
+                      </div>
+                      <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        <MdDateRange />
+                        {curretntdate}
+                      </div>
+                      <div className=" sm:flex hidden  justify-center items-center text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        <FaTag />
+                        HandeMade
+                      </div>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-gray-700 ">
+                      <Link
+                        className="hover:underline hover:text-purple-500"
+                        href={article?.url}
+                      >
+                        {article?.title}
+                      </Link>
+                    </h2>
+                    {educationData ? (
+                      <p className="text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {contentwords}{" "}
+                        <button
+                          onClick={() => setEducationData(false)}
+                          className="text-purple-500 hover:underline"
+                        >
+                          Read Less...
+                        </button>
+                      </p>
+                    ) : (
+                      <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                        {contentword}{" "}
+                        <button
+                          onClick={() => setEducationData(true)}
+                          className="text-purple-500 hover:underline"
+                        >
+                          Read More...
+                        </button>
+                      </p>
+                    )}
+                  </div>
+                ))}
+                {education?.map((article: NewsArticle, index) => (
+                  <div key={index} className="mt-5 mb-5">
+                    <Image
+                      src={article?.image}
+                      width={1900}
+                      height={900}
+                      priority={true}
+                      alt="blogImage"
+                      className="rounded-lg"
+                    ></Image>
+                    <div className="flex items-center gap-5 pt-1 pb-2">
+                      <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        <RiAdminFill />
+                        Admin
+                      </div>
+                      <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        <MdDateRange />
+                        {curretntdate}
+                      </div>
+                      <div className=" sm:flex hidden  justify-center items-center text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        <FaTag />
+                        HandeMade
+                      </div>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-gray-700 ">
+                      <Link
+                        className="hover:underline hover:text-purple-500"
+                        href={article?.url}
+                      >
+                        {article?.title}
+                      </Link>
+                    </h2>
+                    {educationData ? (
+                      <p className="text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {contentwords}{" "}
+                        <button
+                          onClick={() => setEducationData(false)}
+                          className="text-purple-500 hover:underline"
+                        >
+                          Read Less...
+                        </button>
+                      </p>
+                    ) : (
+                      <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                        {contentword}{" "}
+                        <button
+                          onClick={() => setEducationData(true)}
+                          className="text-purple-500 hover:underline"
+                        >
+                          Read More...
+                        </button>
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          {/* ===========================smal device============== */}
+          <div className="hidden sm:inline">
             {selectTab === "Industry" &&
               industrial?.map((article: NewsArticle, index) => (
                 <div
@@ -511,7 +758,7 @@ const BlogsComponents = () => {
                 </div>
               ))}
           </div>
-          <div>
+          <div className="hidden sm:inline">
             {selectTab === "Education" &&
               education?.map((article: NewsArticle, index) => (
                 <div
@@ -543,7 +790,7 @@ const BlogsComponents = () => {
                 </div>
               ))}
           </div>
-          <div>
+          <div className="hidden sm:inline">
             {selectTab === "All News" &&
               [...industrial, ...education]?.map(
                 (article: NewsArticle, index) => (
