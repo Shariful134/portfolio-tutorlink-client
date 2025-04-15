@@ -10,29 +10,42 @@ import { Input } from "@/components/ui/input";
 import { MdDateRange } from "react-icons/md";
 import { SkeletonLoading } from "@/components/ui/shared/SkeletonLoading";
 import { useUser } from "@/context/UserContext";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const BlogsComponents = () => {
   const [education, setEducation] = useState<NewsArticle[] | []>([]);
-
   const [industrial, setIndustrial] = useState<NewsArticle[] | []>([]);
-  const [educationData, setEducationData] = useState(false);
-  const [industrialData, setIndustrialData] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
+
   const { setIsLoading, isLoading } = useUser();
 
   const [selectTab, setSelectTab] = useState<
     "Industry" | "Education" | "All News"
   >("All News");
+
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [expandedIndexIndustrial, setExpandedIndexIndustrial] = useState<
+    number | null
+  >(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `https://gnews.io/api/v4/search?q=education%20tips&lang=en&max=10&apikey=776f6f0b122cac01f4af40f2534f5575`
+          `https://gnews.io/api/v4/search?q=education%20tips&lang=en&max=10&apikey=33b6dfeb530be2d1acbede3ad6af7965`
         );
 
         const industrialRresponse = await fetch(
-          "https://gnews.io/api/v4/search?q=industrial&lang=en&max=10&apikey=776f6f0b122cac01f4af40f2534f5575"
+          "https://gnews.io/api/v4/search?q=industrial&lang=en&max=10&apikey=33b6dfeb530be2d1acbede3ad6af7965"
         );
 
         const industrialResult = await industrialRresponse.json();
@@ -57,21 +70,6 @@ const BlogsComponents = () => {
     year: "numeric",
   });
 
-  // educational data
-  const contentword = education?.map((item: NewsArticle) =>
-    item.content.split("").slice(0, 20)
-  );
-  const contentwords = industrial?.map((item: NewsArticle) =>
-    item.content.split("").slice(0, 100)
-  );
-  // industrial data
-  const contentwordIndustrial = education?.map((item: NewsArticle) =>
-    item.content.split("").slice(0, 20)
-  );
-  const contentwordsIndustrial = industrial?.map((item: NewsArticle) =>
-    item.content.split("").slice(0, 100)
-  );
-
   const educationFiltered = education.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -87,7 +85,7 @@ const BlogsComponents = () => {
     );
 
   return (
-    <div className="pb-0 md:pb-5">
+    <div className="pb-0 md:pb-5 mt-5">
       <div className="relative">
         <Image
           src={photo}
@@ -115,8 +113,9 @@ const BlogsComponents = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-15 sm:justify-start ">
-        <div className="hidden sm:inline w-full md:w-[70%] lg:w-[50%]  order-2 md:order-1  ">
+      <div className="flex flex-col md:flex-row gap-5 sm:justify-start  ">
+        {/* =========================show news only 3 with description============================ */}
+        <div className="hidden sm:inline w-full md:w-[65%] lg:w-[50%] order-2 md:order-1  ">
           {education?.slice(6, 7)?.map((article: NewsArticle, index) => (
             <div key={index} className="mt-5 mb-5">
               <Image
@@ -152,24 +151,24 @@ const BlogsComponents = () => {
                   {article?.title}
                 </Link>
               </h2>
-              {educationData ? (
-                <p className="text-sm md:text-sm lg:text-lg text-gray-700 ">
-                  {contentwords}{" "}
+              {expandedIndex === index ? (
+                <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                  {article?.content?.split("").slice(0, 500)}
                   <button
-                    onClick={() => setEducationData(false)}
                     className="text-purple-500 hover:underline"
+                    onClick={() => setExpandedIndex(null)}
                   >
-                    Read Less...
+                    Red Less...
                   </button>
                 </p>
               ) : (
                 <p className="text-sm md:text-sm lg:text-lg text-gray-700">
-                  {contentword}{" "}
+                  {article?.content?.split("").slice(0, 50)}
                   <button
-                    onClick={() => setEducationData(true)}
                     className="text-purple-500 hover:underline"
+                    onClick={() => setExpandedIndex(index)}
                   >
-                    Read More...
+                    Red More...
                   </button>
                 </p>
               )}
@@ -210,31 +209,56 @@ const BlogsComponents = () => {
                   {article?.title}
                 </Link>
               </h2>
-              {industrialData ? (
+              {expandedIndexIndustrial === index ? (
                 <p className="text-sm md:text-sm lg:text-lg text-gray-700">
-                  {contentwordsIndustrial}{" "}
+                  {article?.content?.split("").slice(0, 500)}
                   <button
-                    onClick={() => setIndustrialData(false)}
                     className="text-purple-500 hover:underline"
+                    onClick={() => setExpandedIndexIndustrial(null)}
                   >
-                    Read Less...
+                    Red Less...
                   </button>
                 </p>
               ) : (
                 <p className="text-sm md:text-sm lg:text-lg text-gray-700">
-                  {contentwordIndustrial}{" "}
+                  {article?.content?.split("").slice(0, 50)}
                   <button
-                    onClick={() => setIndustrialData(true)}
                     className="text-purple-500 hover:underline"
+                    onClick={() => setExpandedIndexIndustrial(index)}
                   >
-                    Read More...
+                    Red More...
                   </button>
                 </p>
               )}
             </div>
           ))}
+          <Pagination className="mt-5">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#" isActive>
+                  2
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">3</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
-        <div className="w-full hidden lg:inline lg:w-[25%]  order-3 md:order-2 mt-5">
+        {/* =======================search reslut=============== */}
+        <div className="w-full hidden lg:inline lg:w-[30%]  order-3 md:order-2 mt-5">
           <Input
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search here"
@@ -293,7 +317,7 @@ const BlogsComponents = () => {
                         <div className="">
                           <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
                             <Link
-                              className="hover:underline hover:text-purple-500"
+                              className="underline text-purple-500"
                               href={article?.url}
                             >
                               {article?.title}
@@ -329,7 +353,7 @@ const BlogsComponents = () => {
                         <div className="">
                           <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
                             <Link
-                              className="hover:underline hover:text-purple-500"
+                              className="underline text-purple-500"
                               href={article?.url}
                             >
                               {article?.title}
@@ -362,7 +386,7 @@ const BlogsComponents = () => {
                         <div className="">
                           <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
                             <Link
-                              className="hover:underline hover:text-purple-500"
+                              className="underline text-purple-500"
                               href={article?.url}
                             >
                               {article?.title}
@@ -399,7 +423,7 @@ const BlogsComponents = () => {
                         <div className="w-[]">
                           <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
                             <Link
-                              className="hover:underline hover:text-purple-500"
+                              className="underline text-purple-500"
                               href={article?.url}
                             >
                               {article?.title}
@@ -433,7 +457,7 @@ const BlogsComponents = () => {
                       <div className="">
                         <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
                           <Link
-                            className="hover:underline hover:text-purple-500"
+                            className="underline text-purple-500"
                             href={article?.url}
                           >
                             {article?.title}
@@ -451,12 +475,22 @@ const BlogsComponents = () => {
             )}
           </div>
         </div>
-        <div className=" w-full md:w-[30%] lg:w-[25%]  order-1 md:order-3">
+
+        {/* ===============all data width filter section============================================ */}
+        <div className=" w-full md:w-[35%] lg:w-[30%]  order-1 md:order-3">
           <h2 className="text-2xl my-5 "></h2>
-          <div className="bg-gray-200 grid grid-cols-12 ">
+          <div className="bg-gray-200 grid grid-cols-12 w-full">
+            <p
+              onClick={() => setSelectTab("All News")}
+              className={`py-2 sm:py-4 col-span-4 text-center ${
+                selectTab === "All News" ? "bg-purple-500 text-white" : ""
+              }`}
+            >
+              All News{" "}
+            </p>
             <p
               onClick={() => setSelectTab("Industry")}
-              className={`py-4 col-span-4 text-center ${
+              className={`py-2 sm:py-4 col-span-4 text-center ${
                 selectTab === "Industry" ? "bg-purple-500 text-white" : ""
               }`}
             >
@@ -464,84 +498,18 @@ const BlogsComponents = () => {
             </p>
             <p
               onClick={() => setSelectTab("Education")}
-              className={`py-4 col-span-4 text-center ${
+              className={`py-2 sm:py-4  col-span-4 text-center ${
                 selectTab === "Education" ? "bg-purple-500 text-white" : ""
               }`}
             >
               Education
             </p>
-            <p
-              onClick={() => setSelectTab("All News")}
-              className={`py-4 col-span-4 text-center ${
-                selectTab === "All News" ? "bg-purple-500 text-white" : ""
-              }`}
-            >
-              All News{" "}
-            </p>
           </div>
 
-          {/* ==================small device====================== */}
+          {/* ================== show xs small device with description====================== */}
           <div className="inline sm:hidden">
             {selectTab === "All News" && (
               <div>
-                {industrial?.map((article: NewsArticle, index) => (
-                  <div key={index} className="mt-5 mb-5">
-                    <Image
-                      src={article?.image}
-                      width={1900}
-                      height={900}
-                      priority={true}
-                      alt="blogImage"
-                      className="rounded-lg"
-                    ></Image>
-                    <div className="flex items-center gap-5 pt-1 pb-2">
-                      <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
-                        {" "}
-                        <RiAdminFill />
-                        Admin
-                      </div>
-                      <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
-                        {" "}
-                        <MdDateRange />
-                        {curretntdate}
-                      </div>
-                      <div className=" sm:flex hidden  justify-center items-center text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
-                        {" "}
-                        <FaTag />
-                        HandeMade
-                      </div>
-                    </div>
-                    <h2 className="text-2xl font-semibold text-gray-700 ">
-                      <Link
-                        className="hover:underline hover:text-purple-500"
-                        href={article?.url}
-                      >
-                        {article?.title}
-                      </Link>
-                    </h2>
-                    {educationData ? (
-                      <p className="text-sm md:text-sm lg:text-lg text-gray-700 ">
-                        {contentwords}{" "}
-                        <button
-                          onClick={() => setEducationData(false)}
-                          className="text-purple-500 hover:underline"
-                        >
-                          Read Less...
-                        </button>
-                      </p>
-                    ) : (
-                      <p className="text-sm md:text-sm lg:text-lg text-gray-700">
-                        {contentword}{" "}
-                        <button
-                          onClick={() => setEducationData(true)}
-                          className="text-purple-500 hover:underline"
-                        >
-                          Read More...
-                        </button>
-                      </p>
-                    )}
-                  </div>
-                ))}
                 {education?.map((article: NewsArticle, index) => (
                   <div key={index} className="mt-5 mb-5">
                     <Image
@@ -577,24 +545,82 @@ const BlogsComponents = () => {
                         {article?.title}
                       </Link>
                     </h2>
-                    {educationData ? (
-                      <p className="text-sm md:text-sm lg:text-lg text-gray-700 ">
-                        {contentwords}{" "}
+                    {expandedIndex === index ? (
+                      <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                        {article?.content?.split("").slice(0, 500)}
                         <button
-                          onClick={() => setEducationData(false)}
                           className="text-purple-500 hover:underline"
+                          onClick={() => setExpandedIndex(null)}
                         >
-                          Read Less...
+                          Red Less...
                         </button>
                       </p>
                     ) : (
                       <p className="text-sm md:text-sm lg:text-lg text-gray-700">
-                        {contentword}{" "}
+                        {article?.content?.split("").slice(0, 50)}
                         <button
-                          onClick={() => setEducationData(true)}
                           className="text-purple-500 hover:underline"
+                          onClick={() => setExpandedIndex(index)}
                         >
-                          Read More...
+                          Red More...
+                        </button>
+                      </p>
+                    )}
+                  </div>
+                ))}
+                {industrial?.map((article: NewsArticle, index) => (
+                  <div key={index} className="mt-5 mb-5">
+                    <Image
+                      src={article?.image}
+                      width={1900}
+                      height={900}
+                      priority={true}
+                      alt="blogImage"
+                      className="rounded-lg"
+                    ></Image>
+                    <div className="flex items-center gap-5 pt-1 pb-2">
+                      <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        <RiAdminFill />
+                        Admin
+                      </div>
+                      <div className="flex justify-center items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        <MdDateRange />
+                        {curretntdate}
+                      </div>
+                      <div className=" sm:flex hidden  justify-center items-center text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        <FaTag />
+                        HandeMade
+                      </div>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-gray-700 ">
+                      <Link
+                        className="hover:underline hover:text-purple-500"
+                        href={article?.url}
+                      >
+                        {article?.title}
+                      </Link>
+                    </h2>
+                    {expandedIndexIndustrial === index ? (
+                      <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                        {article?.content?.split("").slice(0, 500)}
+                        <button
+                          className="text-purple-500 hover:underline"
+                          onClick={() => setExpandedIndexIndustrial(null)}
+                        >
+                          Red Less...
+                        </button>
+                      </p>
+                    ) : (
+                      <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                        {article?.content?.split("").slice(0, 50)}
+                        <button
+                          className="text-purple-500 hover:underline"
+                          onClick={() => setExpandedIndexIndustrial(index)}
+                        >
+                          Red More...
                         </button>
                       </p>
                     )}
@@ -640,27 +666,58 @@ const BlogsComponents = () => {
                       {article?.title}
                     </Link>
                   </h2>
-                  {educationData ? (
-                    <p className="text-sm md:text-sm lg:text-lg text-gray-700 ">
-                      {contentwords}{" "}
+                  {expandedIndexIndustrial === index ? (
+                    <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                      {article?.content?.split("").slice(0, 500)}
                       <button
-                        onClick={() => setEducationData(false)}
                         className="text-purple-500 hover:underline"
+                        onClick={() => setExpandedIndexIndustrial(null)}
                       >
-                        Read Less...
+                        Red Less...
                       </button>
                     </p>
                   ) : (
                     <p className="text-sm md:text-sm lg:text-lg text-gray-700">
-                      {contentword}{" "}
+                      {article?.content?.split("").slice(0, 50)}
                       <button
-                        onClick={() => setEducationData(true)}
                         className="text-purple-500 hover:underline"
+                        onClick={() => setExpandedIndexIndustrial(index)}
                       >
-                        Read More...
+                        Red More...
                       </button>
                     </p>
                   )}
+                  {/* {expandedArticles[index] ? (
+                    <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                      {article?.content?.split("").slice(0, 500)}
+                      <button
+                        className="text-purple-500 hover:underline"
+                        onClick={() =>
+                          setExpandedArticles((prev) => ({
+                            ...prev,
+                            [index]: false,
+                          }))
+                        }
+                      >
+                        Red Less...
+                      </button>
+                    </p>
+                  ) : (
+                    <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                      {article?.content?.split("").slice(0, 50)}
+                      <button
+                        className="text-purple-500 hover:underline"
+                        onClick={() =>
+                          setExpandedArticles((prev) => ({
+                            ...prev,
+                            [index]: true,
+                          }))
+                        }
+                      >
+                        Red More...
+                      </button>
+                    </p>
+                  )} */}
                 </div>
               ))}
           </div>
@@ -701,36 +758,35 @@ const BlogsComponents = () => {
                       {article?.title}
                     </Link>
                   </h2>
-                  {educationData ? (
-                    <p className="text-sm md:text-sm lg:text-lg text-gray-700 ">
-                      {contentwords}{" "}
+                  {expandedIndex === index ? (
+                    <p className="text-sm md:text-sm lg:text-lg text-gray-700">
+                      {article?.content?.split("").slice(0, 500)}
                       <button
-                        onClick={() => setEducationData(false)}
                         className="text-purple-500 hover:underline"
+                        onClick={() => setExpandedIndex(null)}
                       >
-                        Read Less...
+                        Red Less...
                       </button>
                     </p>
                   ) : (
                     <p className="text-sm md:text-sm lg:text-lg text-gray-700">
-                      {contentword}{" "}
+                      {article?.content?.split("").slice(0, 50)}
                       <button
-                        onClick={() => setEducationData(true)}
                         className="text-purple-500 hover:underline"
+                        onClick={() => setExpandedIndex(index)}
                       >
-                        Read More...
+                        Red More...
                       </button>
                     </p>
                   )}
                 </div>
               ))}
           </div>
-
-          {/* ===========================medium device============== */}
+          {/* ===========================Show after small device without description============== */}
           <div className="hidden sm:inline">
-            {selectTab === "All News" &&
-              [...industrial, ...education]?.map(
-                (article: NewsArticle, index) => (
+            {selectTab === "All News" && (
+              <div>
+                {education?.map((article: NewsArticle, index) => (
                   <div
                     key={index}
                     className="mt-5 flex flex-col md:flex-row gap-2 overflow-hidden "
@@ -746,7 +802,7 @@ const BlogsComponents = () => {
                     <div className="">
                       <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
                         <Link
-                          className="hover:underline hover:text-purple-500"
+                          className="underline text-purple-500 "
                           href={article?.url}
                         >
                           {article?.title}
@@ -758,8 +814,38 @@ const BlogsComponents = () => {
                       </div>
                     </div>
                   </div>
-                )
-              )}
+                ))}
+                {industrial?.map((article: NewsArticle, index) => (
+                  <div
+                    key={index}
+                    className="mt-5 flex flex-col md:flex-row gap-2  overflow-hidden"
+                  >
+                    <Image
+                      src={article?.image}
+                      width={100}
+                      height={1300}
+                      priority={true}
+                      alt="blogImage"
+                      className="rounded-lg "
+                    ></Image>
+                    <div className="">
+                      <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
+                        <Link
+                          className="underline text-purple-500"
+                          href={article?.url}
+                        >
+                          {article?.title}
+                        </Link>
+                      </h2>
+                      <div className="flex items-center  text-xs sm:text-sm md:text-sm lg:text-lg text-gray-700 ">
+                        {" "}
+                        {article?.publishedAt}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <div className="hidden sm:inline">
             {selectTab === "Industry" &&
@@ -779,7 +865,7 @@ const BlogsComponents = () => {
                   <div className="">
                     <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
                       <Link
-                        className="hover:underline hover:text-purple-500"
+                        className="underline text-purple-500"
                         href={article?.url}
                       >
                         {article?.title}
@@ -811,7 +897,7 @@ const BlogsComponents = () => {
                   <div className="">
                     <h2 className="text-lg font-semibold text-gray-700 line-clamp-1">
                       <Link
-                        className="hover:underline hover:text-purple-500"
+                        className="underline text-purple-500"
                         href={article?.url}
                       >
                         {article?.title}

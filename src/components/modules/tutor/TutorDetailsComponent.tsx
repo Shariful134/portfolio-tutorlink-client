@@ -153,7 +153,7 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
           {tutorDetails?.map((tutorData: ITutor) => (
             <div
               key={tutorData?._id}
-              className=" p-5 card bg-base-100 mx-auto min-w-[70%]  h-full flex flex-col md:flex-row justify-center items-center shadow-md"
+              className=" p-5 card shadow-md xl:shadow-white bg-base-100 mx-auto min-w-[70%]  h-full flex flex-col md:flex-row justify-center items-center "
             >
               <div className="flex flex-col justify-center items-center">
                 <Image
@@ -166,7 +166,7 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
                 <span className="text-sm">{tutorData?.email}</span>
                 <ShowRating RatingShow={tutorData?.ratings[0]}></ShowRating>
               </div>
-              <div className="card-body ">
+              <div className="card-body ps-0 sm:ps-5 ">
                 <div className="flex justify-center items-center">
                   <h2 className="card-title text-sm sm:text-xl ">
                     {tutorData?.name}{" "}
@@ -248,15 +248,16 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
               key={tutor._id}
               className="card bg-base-100 w-[95%] group min-w-[100px] max-w-[120px]  border border-gray-200 hover:shadow-sm"
             >
-              <figure className="relative ">
+              <figure className="relative h-[100%]">
                 <Image
+                  className="h-[100%]"
                   src={tutor.profileImage}
                   width={400}
                   height={100}
                   alt="profileImage"
                 ></Image>
                 <Link
-                  className="absolute text-center py-1 top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 roudend-md w-full text-xs cursor-pointer hover:text-gray-900 border-0 bg-gray-300  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ..."
+                  className="absolute w-full text-center py-1 lg:py-2 bottom-0 lg:bottom-1/2 left-0 lg:translate-y-1/2 opacity-100 lg:opacity-0 group-hover:opacity-100 roudend-md  text-xs cursor-pointer hover:text-gray-900 border-0 bg-gray-300  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ..."
                   href={`/tutors/${tutor._id}`}
                 >
                   Details

@@ -320,7 +320,7 @@ const BookingsComponent = ({ tutorId }: { tutorId: string }) => {
               <FaRegStar className="text-yellow-500" />
             </div>
           </div>
-          <div className="card-body">
+          <div className="card-body ps-0 sm:ps-5">
             <div className="flex justify-center items-center">
               <h2 className="card-title text-xl ">{tutor?.name} </h2>
               <p className=" text-sm md:text-sm  text-gray-700 ">

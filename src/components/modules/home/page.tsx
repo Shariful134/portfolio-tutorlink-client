@@ -331,7 +331,7 @@ const HomeComponent = () => {
           </div>
           <Button
             variant="outline"
-            className="roudend-full mt-1 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+            className="roudend-full mt-1 mb-5 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
           >
             Explore Tutors
           </Button>
@@ -647,8 +647,9 @@ const HomeComponent = () => {
                 key={tutor._id || index}
                 className="card bg-base-100 w-[95%] group border border-gray-200 hover:shadow-lg"
               >
-                <figure className="relative ">
+                <figure className="relative h-[100%]">
                   <Image
+                    className="h-[100%]"
                     src={tutor?.profileImage}
                     priority={true}
                     width={1100}
@@ -656,14 +657,16 @@ const HomeComponent = () => {
                     alt="BannerImg"
                   ></Image>
                   <Link
-                    className="roudend-ful w-full absolute text-center py-1 top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+                    className="roudend-ful w-full absolute text-center py-1 lg:py-2 bottom-0 lg:bottom-1/2 left-0 lg:translate-y-1/2 opacity-100 lg:opacity-0 group-hover:opacity-100 cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
                     href={`/tutors/${tutor._id}`}
                   >
                     Details
                   </Link>
                 </figure>
                 <div className="card-body">
-                  <h2 className="card-title text-xl">{tutor.name}</h2>
+                  <h2 className="card-title text-sm md:text-lg xl:text-xl">
+                    {tutor.name}
+                  </h2>
                   <p className=" text-sm md:text-sm lg:text-lg text-gray-700 ">
                     {tutor.category}
                   </p>
@@ -684,31 +687,45 @@ const HomeComponent = () => {
                     </p>
                     <ShowRating RatingShow={tutor?.ratings[0]}></ShowRating>
                   </div>
-                  <div className=" flex flex-wrap gap-y-2 justify-between  items-center">
-                    {user?.role === "student" && (
-                      <div className="flex justify-between items-center gap-8">
-                        <div>
-                          {acceptedTutors?.includes(tutor?._id) ? (
-                            <Button className="roudend-ful cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-                              Accpted
-                            </Button>
-                          ) : requestedTutors?.includes(tutor?._id) ? (
-                            <Button className="roudend-ful cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-                              Request
-                            </Button>
-                          ) : (
-                            <Button
-                              onClick={() => handleRequest(tutor?._id)}
-                              className="roudend-ful cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
-                            >
-                              Add
-                            </Button>
-                          )}
+
+                  <div className=" grid gap-3 grid-cols-12">
+                    <div className="col-span-6 xl:col-span-4">
+                      {user?.role === "student" && (
+                        <div className="flex flex-col lg-flex-row justify-between items-center gap-8">
+                          <div className="w-full">
+                            {acceptedTutors?.includes(tutor?._id) ? (
+                              <Button className="roudend-ful w-full cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                                Accpted
+                              </Button>
+                            ) : requestedTutors?.includes(tutor?._id) ? (
+                              <Button className="roudend-ful w-full cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                                Request
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={() => handleRequest(tutor?._id)}
+                                className="roudend-ful w-full cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+                              >
+                                Add
+                              </Button>
+                            )}
+                          </div>
                         </div>
-                        <div className=" hover:bg-gray-400/25">
+                      )}
+                    </div>
+                    <div className="col-span-6 xl:col-span-4">
+                      <Link href={`/booking/${tutor._id}`}>
+                        <Button className="roudend-ful w-full cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                          Booking
+                        </Button>
+                      </Link>
+                    </div>
+                    <div className="col-span-12 text-center xl:col-span-4">
+                      {user?.role === "student" && (
+                        <div className=" hover:bg-gray-400/25 mx-auto ">
                           <Dialog>
                             <DialogTrigger asChild>
-                              <Button className="">
+                              <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white w-full">
                                 <MessageSquareMore />
                               </Button>
                             </DialogTrigger>
@@ -801,13 +818,8 @@ const HomeComponent = () => {
                             </DialogContent>
                           </Dialog>
                         </div>
-                      </div>
-                    )}
-                    <Link href={`/booking/${tutor._id}`}>
-                      <Button className="roudend-ful  cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-                        Booking
-                      </Button>
-                    </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -829,7 +841,7 @@ const HomeComponent = () => {
       {/* =====================================student sayas section====================== */}
       <div className=" px-10 mt-5 md:mt-15">
         <div>
-          <h2 className="text-xl md:text-2xl lg:text-4xl text-center md:text-start mb-5">
+          <h2 className="text-xl md:text-2xl lg:text-4xl text-center md:text-start mb-2 sm:mb-5">
             Our Student <span className="text-pink-500">Says</span>
           </h2>
         </div>

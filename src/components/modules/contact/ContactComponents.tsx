@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 const ContactComponents = () => {
   return (
-    <div className="pb-5 mb-10">
+    <div className="pb-5 mb-10 mt-5">
       <div className="relative ">
         <Image
           src={photo}

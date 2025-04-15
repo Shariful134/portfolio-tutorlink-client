@@ -369,8 +369,9 @@ const AllTutorComponents = () => {
                   key={tutor._id || index}
                   className="card bg-base-100 w-[95%] group border border-gray-200 hover:shadow-lg"
                 >
-                  <figure className="relative ">
+                  <figure className="relative h-[100%]">
                     <Image
+                      className="h-[100%]"
                       src={tutor?.profileImage}
                       priority={true}
                       width={1100}
@@ -378,14 +379,16 @@ const AllTutorComponents = () => {
                       alt="BannerImg"
                     ></Image>
                     <Link
-                      className="roudend-ful w-full absolute text-center py-1 top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+                      className="roudend-ful w-full absolute text-center py-1 lg:py-2 bottom-0 lg:bottom-1/2 left-0 lg:translate-y-1/2 opacity-100 lg:opacity-0 group-hover:opacity-100 cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
                       href={`/tutors/${tutor._id}`}
                     >
                       Details
                     </Link>
                   </figure>
                   <div className="card-body">
-                    <h2 className="card-title text-xl">{tutor.name}</h2>
+                    <h2 className="card-title text-sm md:text-lg xl:text-xl">
+                      {tutor.name}
+                    </h2>
                     <p className=" text-sm md:text-sm lg:text-lg text-gray-700 ">
                       {tutor.category}
                     </p>
@@ -399,153 +402,160 @@ const AllTutorComponents = () => {
                         </span>{" "}
                         hr
                       </p>
-                      <div className="flex items-center">
+
+                      <div className="flex items-center gap-1">
                         <p className="max-w-[80px] ">
                           Review ( {tutor?.ratings?.length} )
                         </p>
                         <ShowRating RatingShow={tutor?.ratings[0]}></ShowRating>
                       </div>
                     </div>
-                    <div className=" flex flex-wrap gap-y-2 justify-between  items-center">
-                      {user?.role === "student" && (
-                        <div className="flex justify-between items-center gap-8">
-                          <div>
-                            {acceptedTutors?.includes(tutor?._id) ? (
-                              <Button className="roudend-ful cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-                                Accpted
-                              </Button>
-                            ) : requestedTutors?.includes(tutor?._id) ? (
-                              <Button className="roudend-ful cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-                                Request
-                              </Button>
-                            ) : (
-                              <Button
-                                onClick={() => handleRequest(tutor?._id)}
-                                className="roudend-ful cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
-                              >
-                                Add
-                              </Button>
-                            )}
-                          </div>
-                          <div className=" hover:bg-gray-400/25">
-                            <Dialog>
-                              <DialogTrigger asChild>
-                                <Button className="bg-blue-50">
-                                  <MessageSquareMore />
-                                </Button>
-                              </DialogTrigger>
-                              <DialogContent className="sm:max-w-[425px] max-h-[600px] bg-white">
-                                <DialogHeader>
-                                  <DialogTitle></DialogTitle>
-                                  <DialogDescription></DialogDescription>
-                                </DialogHeader>
-                                <Form {...form}>
-                                  <form onSubmit={form.handleSubmit(onSubmit)}>
-                                    <div className="grid grid-cols-1  gap-2">
-                                      <FormField
-                                        control={form.control}
-                                        name="comment"
-                                        render={({ field }) => (
-                                          <FormItem>
-                                            <FormLabel>Your opinion</FormLabel>
-                                            <FormControl>
-                                              <Textarea
-                                                {...field}
-                                                value={field.value || ""}
-                                              ></Textarea>
-                                            </FormControl>
-                                            <FormMessage className="text-red-500" />
-                                          </FormItem>
-                                        )}
-                                      />
-                                      <FormField
-                                        control={form.control}
-                                        name="rating"
-                                        render={({ field }) => (
-                                          <FormItem>
-                                            <FormLabel>Your Rating</FormLabel>
-                                            <FormControl>
-                                              <Input
-                                                type="number"
-                                                className="border border-gray-400 "
-                                                {...field}
-                                                value={field.value || ""}
-                                              />
-                                            </FormControl>
-                                            <FormMessage className="text-red-500" />
-                                          </FormItem>
-                                        )}
-                                      />
-                                    </div>
 
-                                    <div>
-                                      <Button
-                                        onClick={() => setTutorId(tutor?._id)}
-                                        className="mt-2 cursor-pointer border-0 hover:border btn bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ..."
-                                        type="submit"
-                                      >
-                                        Submit
-                                      </Button>
-                                    </div>
-                                  </form>
-                                </Form>
-                                <div className="max-h-[72%] overflow-y-auto">
-                                  {reviews
-                                    ?.filter(
-                                      (review: any) =>
-                                        review?.tutor?._id === tutor?._id
-                                    )
-                                    .map((review, index) => (
-                                      <div
-                                        key={review._id}
-                                        className="flex gap-2 mb-5"
-                                      >
-                                        {review?.student?.profileImage ? (
-                                          <Avatar>
-                                            <AvatarImage
-                                              src={
-                                                review?.student?.profileImage
-                                              }
-                                              alt="@shadcn"
+                    <div className=" grid gap-3 grid-cols-12">
+                      <div className="col-span-6 xl:col-span-4">
+                        {user?.role === "student" && (
+                          <div className="flex flex-col lg-flex-row justify-between items-center gap-8">
+                            <div className="w-full">
+                              {acceptedTutors?.includes(tutor?._id) ? (
+                                <Button className="roudend-ful w-full cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                                  Accpted
+                                </Button>
+                              ) : requestedTutors?.includes(tutor?._id) ? (
+                                <Button className="roudend-ful w-full cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                                  Request
+                                </Button>
+                              ) : (
+                                <Button
+                                  onClick={() => handleRequest(tutor?._id)}
+                                  className="roudend-ful w-full cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+                                >
+                                  Add
+                                </Button>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <div className="col-span-6 xl:col-span-4">
+                        <Link href={`/booking/${tutor?._id}`}>
+                          <Button className="roudend-ful w-full cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                            Booking
+                          </Button>
+                        </Link>
+                      </div>
+
+                      {user?.role === "student" && (
+                        <div className="col-span-12 text-center xl:col-span-4">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">
+                                <MessageSquareMore />
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px] max-h-[600px] bg-white">
+                              <DialogHeader>
+                                <DialogTitle></DialogTitle>
+                                <DialogDescription></DialogDescription>
+                              </DialogHeader>
+                              <Form {...form}>
+                                <form onSubmit={form.handleSubmit(onSubmit)}>
+                                  <div className="grid grid-cols-1  gap-2">
+                                    <FormField
+                                      control={form.control}
+                                      name="comment"
+                                      render={({ field }) => (
+                                        <FormItem>
+                                          <FormLabel>Your opinion</FormLabel>
+                                          <FormControl>
+                                            <Textarea
+                                              {...field}
+                                              value={field.value || ""}
+                                            ></Textarea>
+                                          </FormControl>
+                                          <FormMessage className="text-red-500" />
+                                        </FormItem>
+                                      )}
+                                    />
+                                    <FormField
+                                      control={form.control}
+                                      name="rating"
+                                      render={({ field }) => (
+                                        <FormItem>
+                                          <FormLabel>Your Rating</FormLabel>
+                                          <FormControl>
+                                            <Input
+                                              type="number"
+                                              className="border border-gray-400 "
+                                              {...field}
+                                              value={field.value || ""}
                                             />
-                                          </Avatar>
-                                        ) : (
-                                          <Avatar>
-                                            <AvatarImage
-                                              src="https://github.com/shadcn.png"
-                                              alt="@shadcn"
-                                            />
-                                          </Avatar>
-                                        )}
-                                        <div>
-                                          <div className="flex items-center gap-1 ">
-                                            <h2 className="text-lg">
-                                              {review?.student?.name}
-                                            </h2>
-                                            <p>
-                                              <ShowRating
-                                                RatingShow={review?.rating}
-                                              ></ShowRating>
-                                            </p>
-                                          </div>
-                                          <p className="text-sm md:text-sm ">
-                                            {review?.comment}
+                                          </FormControl>
+                                          <FormMessage className="text-red-500" />
+                                        </FormItem>
+                                      )}
+                                    />
+                                  </div>
+
+                                  <div>
+                                    <Button
+                                      onClick={() => setTutorId(tutor?._id)}
+                                      className="mt-2 cursor-pointer border-0 hover:border btn bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ..."
+                                      type="submit"
+                                    >
+                                      Submit
+                                    </Button>
+                                  </div>
+                                </form>
+                              </Form>
+                              <div className="max-h-[72%] overflow-y-auto">
+                                {reviews
+                                  ?.filter(
+                                    (review: any) =>
+                                      review?.tutor?._id === tutor?._id
+                                  )
+                                  .map((review, index) => (
+                                    <div
+                                      key={review._id}
+                                      className="flex gap-2 mb-5"
+                                    >
+                                      {review?.student?.profileImage ? (
+                                        <Avatar>
+                                          <AvatarImage
+                                            src={review?.student?.profileImage}
+                                            alt="@shadcn"
+                                          />
+                                        </Avatar>
+                                      ) : (
+                                        <Avatar>
+                                          <AvatarImage
+                                            src="https://github.com/shadcn.png"
+                                            alt="@shadcn"
+                                          />
+                                        </Avatar>
+                                      )}
+                                      <div>
+                                        <div className="flex items-center gap-1 ">
+                                          <h2 className="text-lg">
+                                            {review?.student?.name}
+                                          </h2>
+                                          <p>
+                                            <ShowRating
+                                              RatingShow={review?.rating}
+                                            ></ShowRating>
                                           </p>
                                         </div>
+                                        <p className="text-sm md:text-sm ">
+                                          {review?.comment}
+                                        </p>
                                       </div>
-                                    ))}
-                                </div>
-                                <DialogFooter></DialogFooter>
-                              </DialogContent>
-                            </Dialog>
-                          </div>
+                                    </div>
+                                  ))}
+                              </div>
+                              <DialogFooter></DialogFooter>
+                            </DialogContent>
+                          </Dialog>
                         </div>
                       )}
-                      <Link href={`/booking/${tutor._id}`}>
-                        <Button className="roudend-ful  cursor-pointer hover:text-gray-900 border-0 bg-gray-300 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-                          Booking
-                        </Button>
-                      </Link>
                     </div>
                   </div>
                 </div>

@@ -9,10 +9,9 @@ const ShowRating = ({ RatingShow }: { RatingShow: number }) => {
         return (
           <div key={i}>
             <FaStar
-              className={`${
+              className={` text-sm lg:text-lg ${
                 startValue <= RatingShow ? "text-yellow-300" : "text-gray-200 "
               }`}
-              size={20}
             ></FaStar>
           </div>
         );
