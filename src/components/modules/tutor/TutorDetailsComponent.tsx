@@ -14,6 +14,9 @@ import { useUser } from "@/context/UserContext";
 import { getAllBooking, requestBooking } from "@/services/request";
 import { toast } from "sonner";
 import { SkeletonLoading } from "@/components/ui/shared/SkeletonLoading";
+import { IReview } from "@/types/review";
+import { getAllReviewComments } from "@/services/User/ReviewComment";
+import ShowRating from "../starRating/ShowRating";
 
 const TutorDetailsComponent = ({ id }: { id: string }) => {
   const [tutors, setTutors] = useState<ITutor[] | []>([]);
@@ -23,8 +26,9 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
   const [requestedTutors, setRequestedTutors] = useState<string[]>([]);
   const [acceptedTutors, setAccetedTutors] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [reviews, setReviews] = useState<IReview[] | []>([]);
 
-  const { user } = useUser();
+  const { user, ratings } = useUser();
 
   // using UseEffect for the Data
   useEffect(() => {
@@ -42,6 +46,9 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
           (tutor: any) => tutor.role === "tutor"
         );
         setTutors(allTutorsData);
+
+        const data = await getAllReviewComments();
+        setReviews(data?.data);
 
         // current setStudentData
         let currentStudent = [];
@@ -94,7 +101,23 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
     (item) => item.category === tutor[0]?.category
   );
 
-  console.log(reletedTutor);
+  const ratingsMap: any = {};
+  reviews?.forEach(({ tutor, rating }) => {
+    if (!ratingsMap[tutor._id]) {
+      ratingsMap[tutor._id] = [];
+    }
+    ratingsMap[tutor._id].push(rating);
+  });
+
+  const reletedTutors = reletedTutor?.map((tutor) => ({
+    ...tutor,
+    ratings: ratingsMap[tutor._id] || tutor.ratings,
+  }));
+
+  const tutorDetails = tutor?.map((tutor) => ({
+    ...tutor,
+    ratings: ratingsMap[tutor._id] || tutor.ratings,
+  }));
 
   const handleRequest = async (id: string) => {
     const requestData = {
@@ -127,7 +150,7 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
     <>
       <div className="pt-20 px-10 ">
         <div className="">
-          {tutor?.map((tutorData: ITutor) => (
+          {tutorDetails?.map((tutorData: ITutor) => (
             <div
               key={tutorData?._id}
               className=" p-5 card bg-base-100 mx-auto min-w-[70%]  h-full flex flex-col md:flex-row justify-center items-center shadow-md"
@@ -141,12 +164,7 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
                   className="rounded-md"
                 ></Image>
                 <span className="text-sm">{tutorData?.email}</span>
-                <div className="flex gap-1 text-sm md:text-sm lg:text-lg justify-center text-gray-700">
-                  <FaStar className="text-yellow-500" />
-                  <FaStar className="text-yellow-500" />
-                  <FaStarHalfAlt className="text-yellow-500" />
-                  <FaRegStar className="text-yellow-500" />
-                </div>
+                <ShowRating RatingShow={tutorData?.ratings[0]}></ShowRating>
               </div>
               <div className="card-body ">
                 <div className="flex justify-center items-center">
@@ -223,8 +241,9 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
           ))}
         </div>
 
+        {/* =============================Releted Tutor================================ */}
         <div className="flex flex-wrap justify-start mt-5  gap-3 ">
-          {reletedTutor?.map((tutor) => (
+          {reletedTutors?.map((tutor) => (
             <div
               key={tutor._id}
               className="card bg-base-100 w-[95%] group min-w-[100px] max-w-[120px]  border border-gray-200 hover:shadow-sm"
@@ -253,12 +272,7 @@ const TutorDetailsComponent = ({ id }: { id: string }) => {
                     ${tutor.hourlyRate}
                     <span>hr</span>{" "}
                   </p>
-                  <div className="flex gap-1 text-sm md:text-sm lg:text-lg text-gray-700">
-                    <FaStar className="text-yellow-500" />
-                    <FaStar className="text-yellow-500" />
-                    <FaStarHalfAlt className="text-yellow-500" />
-                    <FaRegStar className="text-yellow-500" />
-                  </div>
+                  <ShowRating RatingShow={tutor?.ratings[0]}></ShowRating>
                 </div>
               </div>
             </div>
