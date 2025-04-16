@@ -14,7 +14,7 @@ const AboutComponent = () => {
     <div>
       <div className="flex flex-col md:flex-row mt-0 sm:mt-5 lg:mt-20 gap-5 items-center justify-center">
         <div className="max-w-[1000px] text-center sm:text-start">
-          <h2 className="text-2xl md:text-3xl lg:text-5xl mt-5 ">
+          <h2 className="text-2xl md:text-3xl lg:text-5xl mt-0 sm:mt-5 ">
             About Our TutorLink
           </h2>
           <p className="text-sm md:text-sm lg:text-lg text-gray-700 mt-4 ">
@@ -39,18 +39,6 @@ const AboutComponent = () => {
         </div>
       </div>
 
-      {/* <div className="max-w-[700px] text-center mx-auto mt-5 md:mt-15">
-        <h2 className="text-2xl md:text-3xl lg:text-5xl mt-5 ">
-          About Our TutorLink
-        </h2>
-        <p className="text-sm md:text-sm lg:text-lg text-gray-700 mt-4">
-          TutorLink is your trusted learning companion — a user-friendly
-          platform that connects students with verified tutors across a wide
-          range of subjects. Whether you are aiming to ace your exams,
-          strengthen academic foundations, or explore something new, TutorLink
-          is here to support your journey.
-        </p>
-      </div> */}
       <div className="flex flex-col md:flex-row mt-10 md:mt-20 gap-5 items-center justify-center">
         <div>
           <Image
@@ -208,11 +196,11 @@ const AboutComponent = () => {
         </div>
         <div className="inline md:hidden">
           <div className="flex justify-center md:justify-start">
-            <div className="grid grid-cols-12 mx-auto gap-5 mt-5 sm:mt-10 text-center">
+            <div className="grid grid-cols-12 mx-auto gap-5 mt-1 sm:mt-10 text-center">
               {reviewsData?.map((item, index) => (
                 <div
                   key={index}
-                  className="col-span-12 sm:col-span-4 mb-5 border-1 border-gray-200 md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-md"
+                  className="col-span-12 sm:col-span-4 mb-3 border-1 border-gray-200 md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-md"
                 >
                   <div className="pt-5">
                     <Image
