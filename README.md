@@ -1,3 +1,35 @@
+## Getting Started
+## Install & Setup
+ 
+ ## Fronted Setup
+1.Install All dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+3.Set up environment variables in a .env file:
+```bash
+CLOUDINARY_CLOUD_NAME=dhobkuiqj 
+CLOUDINARY_API_KEY=342361686225584
+CLOUDINARY_API_SECRET=K4AhK_3bvJSMKNsRfCJrGrvgTIo
+NEXT_PUBLIC_BASE_URL=https://tutorlink-server-side.vercel.app/api/v1
+```
+3.Start the build your code:
+``` bash
+npm run build
+```
+4.Start the development Frontend:
+``bash
+npm run dev
+```
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
