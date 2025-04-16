@@ -79,7 +79,7 @@ const AboutComponent = () => {
         {/* ==================================our team section===================================== */}
         <div className="flex justify-center md:justify-start">
           <div className="grid grid-cols-12 mx-auto gap-5 mt-5 sm:mt-10">
-            <div className="col-span-12 sm:col-span-4 md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-lg">
+            <div className="col-span-12 sm:col-span-4 md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-md">
               <div>
                 <Image
                   src={img1}
@@ -96,7 +96,7 @@ const AboutComponent = () => {
                 about creating tools that empower students.
               </p>
             </div>
-            <div className="col-span-12 sm:col-span-4 md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-lg">
+            <div className="col-span-12 sm:col-span-4 md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-md">
               <div>
                 <Image
                   src={img3}
@@ -113,7 +113,7 @@ const AboutComponent = () => {
                 intuitive, user-friendly platforms.
               </p>
             </div>
-            <div className="col-span-12 sm:col-span-4 md:col-span-3 xl:col-span-2  max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-lg">
+            <div className="col-span-12 sm:col-span-4 md:col-span-3 xl:col-span-2  max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-md">
               <div>
                 <Image
                   src={img5}
@@ -130,7 +130,7 @@ const AboutComponent = () => {
                 impactful one-on-one learning can be.
               </p>
             </div>
-            <div className="col-span-12 sm:col-span-4 md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-lg">
+            <div className="col-span-12 sm:col-span-4 md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-md">
               <div>
                 <Image
                   src={img4}
@@ -147,7 +147,7 @@ const AboutComponent = () => {
                 always student-centered
               </p>
             </div>
-            <div className="col-span-12 sm:col-span-4 md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-lg">
+            <div className="col-span-12 sm:col-span-4 md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-md">
               <div>
                 <Image
                   src={img5}
@@ -164,7 +164,7 @@ const AboutComponent = () => {
                 strong, supportive community
               </p>
             </div>
-            <div className="col-span-12 sm:col-span-4  md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-lg">
+            <div className="col-span-12 sm:col-span-4  md:col-span-3 xl:col-span-2 max-w-[300px] xs:bg-gray-100/25 hover:bg-gray-100/25 shadow-md">
               <div>
                 <Image
                   src={img6}
@@ -196,7 +196,7 @@ const AboutComponent = () => {
         </div>
         <div className="inline md:hidden">
           <div className="flex justify-center md:justify-start">
-            <div className="grid grid-cols-12 mx-auto gap-5 mt-1 sm:mt-10 text-center">
+            <div className="grid grid-cols-12 mx-auto gap-2 sm:mt-10 text-center">
               {reviewsData?.map((item, index) => (
                 <div
                   key={index}

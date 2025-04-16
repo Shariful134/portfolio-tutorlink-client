@@ -28,13 +28,15 @@ const ReviewCard = ({
         "dark:border-gray-50/[.1] bg-white dark:hover:bg-gray-50/[.15]"
       )}
     >
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-2 overflow-hidden">
         <img className="rounded-full" width="32" height="32" alt="" src={img} />
         <div className="flex flex-col">
-          <figcaption className="text-sm font-semibold dark:text-white">
+          <figcaption className="text-sm font-semibold dark:text-white overflow-hidden">
             {name}
           </figcaption>
-          <p className="text-xs font-medium dark:text-white/40">{username}</p>
+          <p className="text-xs font-medium dark:text-white/40 overflow-hidden">
+            {username}
+          </p>
         </div>
       </div>
       <blockquote className="mt-2 text-sm">{body}</blockquote>
@@ -46,12 +48,16 @@ const SuccesComponents = () => {
   return (
     <div>
       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-        <Marquee pauseOnHover className="[--duration:20s]">
+        <Marquee pauseOnHover className="[--duration:20s] overflow-hidden">
           {firstRow.map((review) => (
             <ReviewCard key={review.username} {...review} />
           ))}
         </Marquee>
-        <Marquee reverse pauseOnHover className="[--duration:20s]">
+        <Marquee
+          reverse
+          pauseOnHover
+          className="[--duration:20s] overflow-hidden"
+        >
           {secondRow.map((review) => (
             <ReviewCard key={review.username} {...review} />
           ))}
