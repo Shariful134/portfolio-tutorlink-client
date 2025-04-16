@@ -1,7 +1,18 @@
-## Getting Started
+
 # tutor-client
-## Install & Setup
- 
+## 🛠️ Technologies Used
+
+- **react**
+- **TypeScript**
+- **next js**
+- **tailwnd css**
+- **Multer**
+- **react dom**
+- **shadcn**
+- **daisyui**
+- **magic ui**
+- **zod**
+
  ## Fronted Setup
 1.Install All dependencies:
 ```bash
